@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #F2F5F3;
+    --bg-2: #E5ECE9;
+    --fg: #10272F;
+    --muted: #4B6168;
+    --line: #C5D2CE;
+    --accent: #0B6E78;
+    --accent-ink: #FFFFFF;
+    --mark: #D99A0B;
+    --contour: #2A8790;
+    --band-bg: #10272F;
+    --band-fg: #E4EEEC;
+    --band-muted: #A9BDBE;
+    --band-line: #2E4952;
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--fg);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  p {
+    font-size: 0.9375rem; /* 15px min for editorial/descriptive paragraphs */
+    line-height: 1.65;
+  }
+
+  /* Form & input standards */
+  label {
+    font-size: 0.875rem; /* text-sm 14px */
+    font-weight: 500;
+  }
+}
+
+.font-display {
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+.font-serif-display {
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+.italic-serif {
+  font-family: 'Newsreader', 'Bricolage Grotesque', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.font-editorial-italic {
+  font-family: 'Newsreader', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.font-mono-custom {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Subtle topographic contour overlay from reference */
+.bg-topo-contour {
+  background-image: radial-gradient(rgba(11, 110, 120, 0.08) 1px, transparent 1px),
+                    radial-gradient(rgba(217, 154, 11, 0.06) 1.5px, transparent 1.5px);
+  background-size: 32px 32px, 64px 64px;
+  background-position: 0 0, 16px 16px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+/* Surveyor amber triangle marker */
+.marker-triangle {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  background-color: #D99A0B;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.marker-triangle-lg {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #D99A0B;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}

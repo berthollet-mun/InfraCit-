@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>InfraCité Ingénierie | Bureau d'études &amp; Territoires</title>
+<!-- Google Fonts: Bricolage Grotesque, IBM Plex Sans, IBM Plex Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600;700;800&amp;family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN v3 with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              DEFAULT: '#0B6E78',
+              hover: '#08555D',
+              light: '#E6F3F4',
+              soft: '#128692',
+            },
+            amber: {
+              DEFAULT: '#D99A0B',
+              hover: '#B57F08',
+              light: '#FBF3DF',
+            },
+            dark: {
+              navy: '#10272F',
+              slate: '#1A3944',
+              card: '#16333D',
+            },
+            canvas: '#F2F5F3',
+            sand: '#E5ECE9',
+            muted: '#526E77',
+          },
+          fontFamily: {
+            display: ['"Bricolage Grotesque"', 'sans-serif'],
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+          borderRadius: {
+            '2xl': '20px',
+            '3xl': '28px',
+          },
+          boxShadow: {
+            'pill': '0 8px 32px -4px rgba(16, 39, 47, 0.08), 0 2px 8px -2px rgba(16, 39, 47, 0.04)',
+            'card': '0 12px 36px -8px rgba(16, 39, 47, 0.06), 0 2px 8px rgba(16, 39, 47, 0.02)',
+            'glass': '0 20px 40px -15px rgba(11, 110, 120, 0.12)',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styles: Topography Pattern, Glassmorphism, Typography Utility -->
+<style data-purpose="typography">
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background-color: #F2F5F3;
+      color: #10272F;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-serif-display {
+      font-family: 'Bricolage Grotesque', sans-serif;
+    }
+    .italic-serif {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-style: italic;
+      font-weight: 400;
+    }
+  </style>
+<style data-purpose="decorations">
+    /* Subtle topographic contour overlay */
+    .bg-topo-contour {
+      background-image: radial-gradient(rgba(11, 110, 120, 0.08) 1px, transparent 1px),
+                        radial-gradient(rgba(217, 154, 11, 0.06) 1.5px, transparent 1.5px);
+      background-size: 32px 32px, 64px 64px;
+      background-position: 0 0, 16px 16px;
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.65);
+    }
+
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+  </style>
+</head>
+<body class="relative overflow-x-hidden selection:bg-teal selection:text-white">
+<!-- BEGIN: FloatingHeader -->
+<header class="fixed top-5 inset-x-0 z-50 flex justify-center px-4 pointer-events-none" data-purpose="main-navigation">
+<nav class="pointer-events-auto flex items-center justify-between gap-4 md:gap-8 px-4 sm:px-6 py-2.5 rounded-full glass-nav shadow-pill max-w-4xl w-full border border-white/60">
+<!-- Brand Logo -->
+<a aria-label="InfraCité Ingénierie - Accueil" class="flex items-center gap-2.5 group shrink-0" href="#">
+<span class="relative flex h-8 w-8 items-center justify-center rounded-full border border-teal/20 bg-teal/5 transition-transform duration-300 group-hover:scale-105">
+<span class="h-4 w-4 rounded-full border border-amber/60 flex items-center justify-center">
+<svg class="w-2.5 h-2.5 text-amber fill-current" viewbox="0 0 100 100">
+<polygon points="50,15 90,85 10,85"></polygon>
+</svg>
+</span>
+</span>
+<span class="font-display font-bold text-lg tracking-tight text-dark-navy">Infra<span class="text-teal font-extrabold">Cité</span></span>
+</a>
+<!-- Desktop Nav Items -->
+<ul class="hidden md:flex items-center gap-6 text-sm font-medium text-dark-navy/80">
+<li>
+<a class="hover:text-teal transition-colors" href="#domaines">Domaines</a>
+</li>
+<li>
+<a class="hover:text-teal transition-colors" href="#missions">Missions</a>
+</li>
+<li>
+<a class="hover:text-teal transition-colors" href="#projets">Applications</a>
+</li>
+<li>
+<a class="hover:text-teal transition-colors" href="#donnees">Méthode</a>
+</li>
+<li>
+<a class="hover:text-teal transition-colors" href="#accompagnement">Approche</a>
+</li>
+</ul>
+<!-- CTA Contact Pill -->
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center justify-center px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold tracking-wide text-white bg-teal hover:bg-teal-hover transition-all rounded-full shadow-sm hover:shadow-md" href="#contact">
+<span>Contact</span>
+<svg class="ml-1.5 w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+</div>
+</nav>
+</header>
+<!-- END: FloatingHeader -->
+<!-- BEGIN: HeroSection -->
+<section class="relative min-h-[92vh] pt-32 pb-20 md:pt-40 md:pb-28 flex items-center overflow-hidden bg-topo-contour" data-purpose="hero-banner">
+<!-- Ambient atmospheric gradients -->
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-white/40 via-transparent to-canvas"></div>
+<div class="absolute -top-40 right-[-10%] w-[550px] h-[550px] bg-teal/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 left-[-15%] w-[500px] h-[500px] bg-amber/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+<!-- Left Hero Content Column -->
+<div class="lg:col-span-7 flex flex-col items-start">
+<!-- Eyebrow Pill -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-slate-200/70 text-[11px] font-mono tracking-wider text-dark-navy uppercase shadow-sm mb-6">
+<span class="inline-block w-2 h-2 text-amber fill-current">
+<svg class="w-full h-full" viewbox="0 0 100 100"><polygon fill="#D99A0B" points="50,15 90,85 10,85"></polygon></svg>
+</span>
+<span>BUREAU D'ÉTUDES · INGÉNIERIE ET SCIENCES APPLIQUÉES</span>
+</div>
+<!-- Main Title -->
+<h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-dark-navy tracking-tight leading-[1.12] mb-6">
+            Des études et des idées au service <span class="italic-serif text-teal font-medium">des territoires.</span>
+</h1>
+<!-- Lead Paragraph -->
+<p class="text-base sm:text-lg text-muted leading-relaxed max-w-2xl font-normal mb-8 text-justify sm:text-left">
+            InfraCité Ingénierie accompagne les acteurs publics et privés dans leurs réflexions et leurs projets grâce à une offre pluridisciplinaire d'études et de conseil : ingénierie, topographie, cartographie, géomatique, environnement, aménagement du territoire et urbanisme opérationnel. Nous transformons les données et les enjeux d'un site en analyses lisibles et en outils d'aide à la décision.
+          </p>
+<!-- Action Buttons -->
+<div class="flex flex-wrap items-center gap-4 w-full sm:w-auto">
+<a class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-full text-sm font-semibold tracking-wide text-white bg-teal hover:bg-teal-hover shadow-md hover:shadow-lg transition-all group" href="#contact">
+<span>Parler de votre projet</span>
+<svg class="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+<a class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-full text-sm font-semibold tracking-wide text-dark-navy bg-white hover:bg-slate-50 border border-slate-300 transition-all" href="#domaines">
+              Découvrir nos domaines
+            </a>
+</div>
+</div>
+<!-- Right Visual Floating Capsule (Auralis Reference Style) -->
+<div class="lg:col-span-5 relative">
+<div class="glass-card rounded-2xl p-6 sm:p-8 shadow-glass border border-white/80 relative">
+<!-- Capsule Header -->
+<div class="flex items-center justify-between pb-5 mb-6 border-b border-slate-200/60">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-teal animate-pulse"></span>
+<h3 class="font-display font-semibold text-dark-navy text-base">InfraCité en bref</h3>
+</div>
+<span class="text-[10px] font-mono tracking-widest uppercase text-muted bg-sand/60 px-2.5 py-1 rounded-full">Présentation</span>
+</div>
+<!-- Vertical Key Pillars -->
+<div class="space-y-5">
+<!-- Pillar 1 -->
+<div class="flex items-start gap-3.5">
+<div class="mt-1 flex-shrink-0 w-4 h-4 text-amber">
+<svg class="w-full h-full fill-current" viewbox="0 0 100 100"><polygon points="50,15 90,85 10,85"></polygon></svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-dark-navy font-display">Ingénierie</h4>
+<p class="text-xs text-muted leading-relaxed">Études techniques, conseil et expertise</p>
+</div>
+</div>
+<!-- Pillar 2 -->
+<div class="flex items-start gap-3.5">
+<div class="mt-1 flex-shrink-0 w-4 h-4 text-amber">
+<svg class="w-full h-full fill-current" viewbox="0 0 100 100"><polygon points="50,15 90,85 10,85"></polygon></svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-dark-navy font-display">Géomatique</h4>
+<p class="text-xs text-muted leading-relaxed">Topographie, cartographie et systèmes d’information géographique</p>
+</div>
+</div>
+<!-- Pillar 3 -->
+<div class="flex items-start gap-3.5">
+<div class="mt-1 flex-shrink-0 w-4 h-4 text-amber">
+<svg class="w-full h-full fill-current" viewbox="0 0 100 100"><polygon points="50,15 90,85 10,85"></polygon></svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-dark-navy font-display">Territoires</h4>
+<p class="text-xs text-muted leading-relaxed">Aménagement du territoire et urbanisme opérationnel</p>
+</div>
+</div>
+<!-- Pillar 4 -->
+<div class="flex items-start gap-3.5">
+<div class="mt-1 flex-shrink-0 w-4 h-4 text-amber">
+<svg class="w-full h-full fill-current" viewbox="0 0 100 100"><polygon points="50,15 90,85 10,85"></polygon></svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-dark-navy font-display">Environnement</h4>
+<p class="text-xs text-muted leading-relaxed">Études environnementales et valorisation des données</p>
+</div>
+</div>
+</div>
+<!-- Footer Note inside Card -->
+<div class="mt-6 pt-4 border-t border-slate-200/60 flex items-center justify-between text-xs text-muted font-medium">
+<span class="inline-flex items-center gap-1.5">
+<svg class="w-3.5 h-3.5 text-teal" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                Pour les maîtres d'ouvrage publics et privés
+              </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: SectionDomaines -->
+<section class="py-24 bg-white border-y border-slate-200/70" data-purpose="domaines-intervention" id="domaines">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<!-- Left Sticky Column -->
+<div class="lg:col-span-5 lg:sticky lg:top-28">
+<span class="font-mono text-xs uppercase tracking-widest text-teal font-semibold">Domaines d'intervention</span>
+<h2 class="font-display text-3xl sm:text-4xl font-extrabold text-dark-navy mt-3 tracking-tight leading-tight">
+            Une lecture transversale des enjeux <span class="italic-serif font-medium text-teal">techniques et territoriaux.</span>
+</h2>
+<p class="mt-5 text-muted leading-relaxed text-sm sm:text-base">
+            De la mesure physique précise à la vision prospective globale, nous combinons les compétences pour structurer des réponses robustes et adaptées à chaque échelle d'intervention.
+          </p>
+<div class="mt-8 p-4 rounded-xl bg-sand/60 border border-slate-200/80 text-xs text-dark-navy flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-amber shrink-0"></span>
+<span>Approche intégrée et méthodologie sur-mesure pour chaque mission.</span>
+</div>
+</div>
+<!-- Right Content Column: 4 Distinct Fields -->
+<div class="lg:col-span-7 space-y-10">
+<!-- Domaine 01: Ingénierie -->
+<article class="p-8 rounded-2xl bg-canvas border border-slate-200/80 shadow-sm transition-all hover:border-teal/40">
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-semibold text-teal tracking-wider">01 — INGÉNIERIE</span>
+<span class="w-1.5 h-1.5 rounded-full bg-amber"></span>
+</div>
+<h3 class="font-display text-2xl font-bold text-dark-navy mb-3">Études techniques, conseil et expertise</h3>
+<p class="text-sm text-muted leading-relaxed mb-6">
+              Assistance technique opérationnelle, diagnostics d’infrastructures, modélisation des contraintes et rédaction des pièces d'aide à la décision pour concevoir des aménagements durables et fiables.
+            </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Diagnostics préalables</span>
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Études de faisabilité</span>
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Assistance technique</span>
+</div>
+</article>
+<!-- Domaine 02: Géomatique & Topographie -->
+<article class="p-8 rounded-2xl bg-canvas border border-slate-200/80 shadow-sm transition-all hover:border-teal/40">
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-semibold text-teal tracking-wider">02 — GÉOMATIQUE</span>
+<span class="w-1.5 h-1.5 rounded-full bg-amber"></span>
+</div>
+<h3 class="font-display text-2xl font-bold text-dark-navy mb-3">Topographie, cartographie et SIG</h3>
+<p class="text-sm text-muted leading-relaxed mb-4">
+              Acquisition, traitement, analyse spatiale et valorisation cartographique des données de terrain. Structuration de bases de données géoréférencées fiables au service des projets d’infrastructure et d’aménagement.
+            </p>
+<!-- Regulatory Mention -->
+<p class="text-xs text-amber font-mono italic mb-6">
+              * Les activités réglementées réservées aux professionnels habilités ne font pas partie de ces prestations.
+            </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Topographie technique</span>
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Cartographie thématique</span>
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">SIG &amp; Données spatiales</span>
+</div>
+</article>
+<!-- Domaine 03: Environnement -->
+<article class="p-8 rounded-2xl bg-canvas border border-slate-200/80 shadow-sm transition-all hover:border-teal/40">
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-semibold text-teal tracking-wider">03 — ENVIRONNEMENT</span>
+<span class="w-1.5 h-1.5 rounded-full bg-amber"></span>
+</div>
+<h3 class="font-display text-2xl font-bold text-dark-navy mb-3">Études environnementales et valorisation des données</h3>
+<p class="text-sm text-muted leading-relaxed mb-6">
+              Évaluation des sensibilités écologiques, intégration paysagère, analyse multicritère des vulnérabilités environnementales et qualification rigoureuse des données d'impact territorial.
+            </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Études d'impact</span>
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Sensibilités environnementales</span>
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Transition écologique</span>
+</div>
+</article>
+<!-- Domaine 04: Territoires -->
+<article class="p-8 rounded-2xl bg-canvas border border-slate-200/80 shadow-sm transition-all hover:border-teal/40">
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-semibold text-teal tracking-wider">04 — TERRITOIRES</span>
+<span class="w-1.5 h-1.5 rounded-full bg-amber"></span>
+</div>
+<h3 class="font-display text-2xl font-bold text-dark-navy mb-3">Aménagement du territoire et urbanisme opérationnel</h3>
+<p class="text-sm text-muted leading-relaxed mb-6">
+              Accompagnement stratégique dans la requalification des espaces, prospective territoriale, programmation urbaine et analyse des trames foncières pour façonner des lieux de vie équilibrés.
+            </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Urbanisme opérationnel</span>
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Projets de territoire</span>
+<span class="px-3 py-1 bg-white text-dark-navy rounded-full text-xs font-medium border border-slate-200">Programmation</span>
+</div>
+</article>
+</div>
+</div>
+</div>
+</section>
+<!-- END: SectionDomaines -->
+<!-- BEGIN: SectionPrestations -->
+<section class="py-24 bg-canvas" data-purpose="nos-prestations" id="missions">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Section Header -->
+<div class="text-center max-w-3xl mx-auto mb-16">
+<span class="font-mono text-xs uppercase tracking-widest text-teal font-semibold">NOS PRESTATIONS</span>
+<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark-navy mt-3 tracking-tight">
+          Des analyses ciblées, des <span class="italic-serif text-teal font-medium">réponses adaptées.</span>
+</h2>
+<p class="mt-4 text-muted text-sm sm:text-base">
+          Des modules d'interventions clairs et structurés pour alimenter chaque jalon clé de votre prise de décision.
+        </p>
+</div>
+<!-- 2x2 Grid of Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Card 1: Observer -->
+<div class="bg-white rounded-2xl p-8 border-t-4 border-teal shadow-card flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-bold text-teal tracking-wider">01 / OBSERVER</span>
+<span class="text-amber text-sm">▲</span>
+</div>
+<h3 class="font-display text-2xl font-bold text-dark-navy mb-3">Diagnostics et analyses préalables</h3>
+<p class="text-sm text-muted leading-relaxed mb-6">
+              Recueil exhaustif des données existantes, observations de terrain, identification des contraintes physiques, réglementaires et environnementales propres au site.
+            </p>
+</div>
+<div class="pt-4 border-t border-slate-100 bg-sand/30 -mx-8 -mb-8 p-6 rounded-b-2xl">
+<span class="text-xs font-semibold text-dark-navy block mb-1">Restitutions possibles :</span>
+<p class="text-xs text-muted">Synthèse documentaire, diagnostic, cartographie et note d'analyse.</p>
+</div>
+</div>
+<!-- Card 2: Évaluer -->
+<div class="bg-white rounded-2xl p-8 border-t-4 border-teal shadow-card flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-bold text-teal tracking-wider">02 / ÉVALUER</span>
+<span class="text-amber text-sm">▲</span>
+</div>
+<h3 class="font-display text-2xl font-bold text-dark-navy mb-3">Études d'opportunité et de faisabilité</h3>
+<p class="text-sm text-muted leading-relaxed mb-6">
+              Comparaison de scénarios d’aménagement, appréciation technique des contraintes de faisabilité, études de cohérence spatiale et évaluation des risques projet.
+            </p>
+</div>
+<div class="pt-4 border-t border-slate-100 bg-sand/30 -mx-8 -mb-8 p-6 rounded-b-2xl">
+<span class="text-xs font-semibold text-dark-navy block mb-1">Restitutions possibles :</span>
+<p class="text-xs text-muted">Étude de faisabilité, analyse multicritère et recommandations.</p>
+</div>
+</div>
+<!-- Card 3: Représenter -->
+<div class="bg-white rounded-2xl p-8 border-t-4 border-teal shadow-card flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-bold text-teal tracking-wider">03 / REPRÉSENTER</span>
+<span class="text-amber text-sm">▲</span>
+</div>
+<h3 class="font-display text-2xl font-bold text-dark-navy mb-3">Production cartographique et géomatique</h3>
+<p class="text-sm text-muted leading-relaxed mb-6">
+              Modélisation cartographique de précision, intégration des couches SIG complexes, sémiologie graphique haut de gamme pour rendre les données techniques compréhensibles par tous.
+            </p>
+</div>
+<div class="pt-4 border-t border-slate-100 bg-sand/30 -mx-8 -mb-8 p-6 rounded-b-2xl">
+<span class="text-xs font-semibold text-dark-navy block mb-1">Restitutions possibles :</span>
+<p class="text-xs text-muted">Plans, cartes, bases de données géographiques et supports SIG.</p>
+</div>
+</div>
+<!-- Card 4: Conseiller -->
+<div class="bg-white rounded-2xl p-8 border-t-4 border-teal shadow-card flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-bold text-teal tracking-wider">04 / CONSEILLER</span>
+<span class="text-amber text-sm">▲</span>
+</div>
+<h3 class="font-display text-2xl font-bold text-dark-navy mb-3">Conseil et assistance technique</h3>
+<p class="text-sm text-muted leading-relaxed mb-6">
+              Éclairage indépendant pour orienter les arbitrages des maîtres d’ouvrage, préparation des dossiers techniques d'aménagement et formulation d'avis argumentés.
+            </p>
+</div>
+<div class="pt-4 border-t border-slate-100 bg-sand/30 -mx-8 -mb-8 p-6 rounded-b-2xl">
+<span class="text-xs font-semibold text-dark-navy block mb-1">Restitutions possibles :</span>
+<p class="text-xs text-muted">Avis techniques, notes de synthèse et dossiers d'aide à la décision.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: SectionPrestations -->
+<!-- BEGIN: SectionChampsApplication -->
+<section class="py-24 bg-white" data-purpose="champs-application" id="projets">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<span class="font-mono text-xs uppercase tracking-widest text-teal font-semibold">CHAMPS D'APPLICATION</span>
+<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark-navy mt-3 tracking-tight">
+          Des problématiques variées, une même <span class="italic-serif text-teal font-medium">exigence de clarté.</span>
+</h2>
+</div>
+<!-- 4 Visual Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Application 1 -->
+<div class="group relative rounded-2xl overflow-hidden bg-dark-navy text-white shadow-card flex flex-col h-[340px]">
+<!-- Provided snapshot reference image utilized with object styling -->
+<img alt="Dynamiques territoriales" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA31Sfa90xjfroCMRWNEZQLPm-B-Cy7kJw3G4L6rkEbOCPFGFpbewHkUEdmn4pqRgwjWoqLsCQG_qmpxHHpJuCZAagvd1QXUKkGcOzRPe8tISZopiKSM97qOvDCbkntMnOB2zKyVlRYpfhyh5CrMlUjwhlLyW_mAwGfUY56wmQksjh5sPvwUgIyf9dUkPJFwqobqIgp4DwdwKQvpA1r5vbX_1u-KxyigeuS9QIpjHE4FfKg89jFPj6M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-dark-navy via-dark-navy/60 to-transparent"></div>
+<div class="relative z-10 p-6 flex flex-col justify-between h-full">
+<span class="font-mono text-[11px] tracking-wider text-amber uppercase">APPLICATION / 01</span>
+<div>
+<h3 class="font-display text-xl font-bold mb-2">Dynamiques territoriales</h3>
+<p class="text-xs text-slate-300 leading-relaxed">
+                Analyse de morphologie urbaine, mobilités, désenclavement et mutations d'échelles intercommunales.
+              </p>
+</div>
+</div>
+</div>
+<!-- Application 2 -->
+<div class="group relative rounded-2xl overflow-hidden bg-dark-navy text-white shadow-card flex flex-col h-[340px]">
+<img alt="Urbanisme opérationnel" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-700 filter hue-rotate-15" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA31Sfa90xjfroCMRWNEZQLPm-B-Cy7kJw3G4L6rkEbOCPFGFpbewHkUEdmn4pqRgwjWoqLsCQG_qmpxHHpJuCZAagvd1QXUKkGcOzRPe8tISZopiKSM97qOvDCbkntMnOB2zKyVlRYpfhyh5CrMlUjwhlLyW_mAwGfUY56wmQksjh5sPvwUgIyf9dUkPJFwqobqIgp4DwdwKQvpA1r5vbX_1u-KxyigeuS9QIpjHE4FfKg89jFPj6M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-dark-navy via-dark-navy/60 to-transparent"></div>
+<div class="relative z-10 p-6 flex flex-col justify-between h-full">
+<span class="font-mono text-[11px] tracking-wider text-amber uppercase">APPLICATION / 02</span>
+<div>
+<h3 class="font-display text-xl font-bold mb-2">Urbanisme opérationnel</h3>
+<p class="text-xs text-slate-300 leading-relaxed">
+                Reconversion de friches, intégration paysagère, programmation de ZAC et optimisation du parcellaire.
+              </p>
+</div>
+</div>
+</div>
+<!-- Application 3 -->
+<div class="group relative rounded-2xl overflow-hidden bg-dark-navy text-white shadow-card flex flex-col h-[340px]">
+<img alt="Connaissance et représentation des sites" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-700 filter contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA31Sfa90xjfroCMRWNEZQLPm-B-Cy7kJw3G4L6rkEbOCPFGFpbewHkUEdmn4pqRgwjWoqLsCQG_qmpxHHpJuCZAagvd1QXUKkGcOzRPe8tISZopiKSM97qOvDCbkntMnOB2zKyVlRYpfhyh5CrMlUjwhlLyW_mAwGfUY56wmQksjh5sPvwUgIyf9dUkPJFwqobqIgp4DwdwKQvpA1r5vbX_1u-KxyigeuS9QIpjHE4FfKg89jFPj6M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-dark-navy via-dark-navy/60 to-transparent"></div>
+<div class="relative z-10 p-6 flex flex-col justify-between h-full">
+<span class="font-mono text-[11px] tracking-wider text-amber uppercase">APPLICATION / 03</span>
+<div>
+<h3 class="font-display text-xl font-bold mb-2">Connaissance et représentation des sites</h3>
+<p class="text-xs text-slate-300 leading-relaxed">
+                Modèles d'élévation, atlas thématiques précis et inventaires géolocalisés des réseaux et des sols.
+              </p>
+</div>
+</div>
+</div>
+<!-- Application 4 -->
+<div class="group relative rounded-2xl overflow-hidden bg-dark-navy text-white shadow-card flex flex-col h-[340px]">
+<img alt="Enjeux environnementaux des territoires" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-700 filter brightness-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA31Sfa90xjfroCMRWNEZQLPm-B-Cy7kJw3G4L6rkEbOCPFGFpbewHkUEdmn4pqRgwjWoqLsCQG_qmpxHHpJuCZAagvd1QXUKkGcOzRPe8tISZopiKSM97qOvDCbkntMnOB2zKyVlRYpfhyh5CrMlUjwhlLyW_mAwGfUY56wmQksjh5sPvwUgIyf9dUkPJFwqobqIgp4DwdwKQvpA1r5vbX_1u-KxyigeuS9QIpjHE4FfKg89jFPj6M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-dark-navy via-dark-navy/60 to-transparent"></div>
+<div class="relative z-10 p-6 flex flex-col justify-between h-full">
+<span class="font-mono text-[11px] tracking-wider text-amber uppercase">APPLICATION / 04</span>
+<div>
+<h3 class="font-display text-xl font-bold mb-2">Enjeux environnementaux des territoires</h3>
+<p class="text-xs text-slate-300 leading-relaxed">
+                Corridors biologiques, zones humides, vulnérabilité climatique et diagnostics de résilience locale.
+              </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Legal note on applications -->
+<div class="mt-8 text-center">
+<p class="text-xs font-mono text-muted italic">
+          Ces exemples illustrent des champs d'application possibles ; ils ne constituent pas des références de réalisations.
+        </p>
+</div>
+</div>
+</section>
+<!-- END: SectionChampsApplication -->
+<!-- BEGIN: SectionDuTerrainALaDecision -->
+<section class="py-24 bg-sand border-y border-slate-300/60" data-purpose="processus-terrain-decision" id="donnees">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Section Title -->
+<div class="max-w-3xl mb-16">
+<span class="font-mono text-xs uppercase tracking-widest text-teal font-semibold">NOTRE PROCESSUS</span>
+<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark-navy mt-3 tracking-tight">
+          De la connaissance du terrain à une <span class="italic-serif text-teal font-medium">décision éclairée.</span>
+</h2>
+<p class="mt-4 text-muted text-sm sm:text-base">
+          Une chaîne méthodologique rigoureuse et itérative garantissant l'intégrité, la lisibilité et la pertinence opérationnelle de chaque rendu.
+        </p>
+</div>
+<!-- 4 Horizontal Sequential Steps -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Step 1 -->
+<div class="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-white relative shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-bold text-dark-navy">ÉTAPE 01</span>
+<span class="text-amber">▲</span>
+</div>
+<h3 class="font-display text-lg font-bold text-dark-navy mb-2">Collecter</h3>
+<p class="text-xs text-muted leading-relaxed">
+            Acquisition des données sources de terrain, inventaires documentaires et consolidation des référentiels cartographiques initiaux.
+          </p>
+</div>
+<!-- Step 2 -->
+<div class="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-white relative shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-bold text-dark-navy">ÉTAPE 02</span>
+<span class="text-amber">▲</span>
+</div>
+<h3 class="font-display text-lg font-bold text-dark-navy mb-2">Traiter</h3>
+<p class="text-xs text-muted leading-relaxed">
+            Contrôle de conformité géométrique, intégration SIG structurée, apurement des données et harmonisation géoréférencée.
+          </p>
+</div>
+<!-- Step 3 -->
+<div class="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-white relative shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-bold text-dark-navy">ÉTAPE 03</span>
+<span class="text-amber">▲</span>
+</div>
+<h3 class="font-display text-lg font-bold text-dark-navy mb-2">Analyser</h3>
+<p class="text-xs text-muted leading-relaxed">
+            Croisement spatial multicritère, confrontation aux réglementations d'urbanisme et qualification des impacts environnementaux.
+          </p>
+</div>
+<!-- Step 4 -->
+<div class="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-white relative shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-4">
+<span class="font-mono text-xs font-bold text-dark-navy">ÉTAPE 04</span>
+<span class="text-amber">▲</span>
+</div>
+<h3 class="font-display text-lg font-bold text-dark-navy mb-2">Valoriser</h3>
+<p class="text-xs text-muted leading-relaxed">
+            Restitution sous forme de rapports limpides, cartographies de haute lisibilité et recommandations stratégiques directes.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: SectionDuTerrainALaDecision -->
+<!-- BEGIN: SectionNotreApproche -->
+<section class="py-24 bg-dark-navy text-slate-100 relative overflow-hidden" data-purpose="notre-approche" id="accompagnement">
+<!-- Atmospheric subtle circles -->
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-teal/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<!-- Section Header -->
+<div class="max-w-3xl mb-16">
+<span class="font-mono text-xs uppercase tracking-widest text-amber font-semibold">NOTRE APPROCHE</span>
+<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3 tracking-tight">
+          Rigueur d'analyse, lisibilité des résultats, <span class="italic-serif text-amber font-medium">utilité des conseils.</span>
+</h2>
+<p class="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+          Nous adaptons nos livrables aux exigences concrètes de gouvernance des projets, qu'il s'agisse de débats publics ou de montages d'opérations privées.
+        </p>
+</div>
+<!-- 2 Cards for Stakeholders -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+<!-- Public Partners Card -->
+<div class="p-8 rounded-2xl bg-dark-card border border-slate-700/80 shadow-card">
+<div class="inline-flex p-2.5 rounded-xl bg-teal/20 text-teal-light mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+</div>
+<h3 class="font-display text-2xl font-bold text-white mb-3">Collectivités et acteurs publics</h3>
+<p class="text-sm text-slate-300 leading-relaxed mb-6">
+            Un appui technique indépendant pour étayer les choix d'aménagement, sécuriser les documents de planification et valoriser le patrimoine foncier et environnemental auprès des citoyens.
+          </p>
+<ul class="space-y-2 text-xs font-mono text-slate-300">
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-amber"></span> Éclairage objectif et d'intérêt général
+            </li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-amber"></span> Supports de concertation communicants
+            </li>
+</ul>
+</div>
+<!-- Private Developers Card -->
+<div class="p-8 rounded-2xl bg-dark-card border border-slate-700/80 shadow-card">
+<div class="inline-flex p-2.5 rounded-xl bg-amber/20 text-amber mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+</div>
+<h3 class="font-display text-2xl font-bold text-white mb-3">Aménageurs et acteurs privés</h3>
+<p class="text-sm text-slate-300 leading-relaxed mb-6">
+            Une réactivité opérationnelle pour sécuriser la faisabilité technique de vos investissements, lever les contraintes de site et optimiser l'insertion spatiale de vos programmes.
+          </p>
+<ul class="space-y-2 text-xs font-mono text-slate-300">
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-amber"></span> Réduction des aléas techniques en amont
+            </li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-amber"></span> Optimisation des délais d'instruction
+            </li>
+</ul>
+</div>
+</div>
+<!-- 3 Core Principles Banner -->
+<div class="border-t border-slate-800 pt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+<div>
+<span class="text-amber font-mono text-sm block mb-1">01 / PRINCIPE</span>
+<h4 class="font-display text-lg font-bold text-white mb-1">Comprendre</h4>
+<p class="text-xs text-slate-400">Immersion complète dans l'histoire, le contexte physique et la trajectoire du site.</p>
+</div>
+<div>
+<span class="text-amber font-mono text-sm block mb-1">02 / PRINCIPE</span>
+<h4 class="font-display text-lg font-bold text-white mb-1">Analyser</h4>
+<p class="text-xs text-slate-400">Croisement méticuleux des données pour révéler potentiels et vulnérabilités.</p>
+</div>
+<div>
+<span class="text-amber font-mono text-sm block mb-1">03 / PRINCIPE</span>
+<h4 class="font-display text-lg font-bold text-white mb-1">Restituer</h4>
+<p class="text-xs text-slate-400">Livrables opérationnels, visuellement intelligibles et directement exploitables.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: SectionNotreApproche -->
+<!-- BEGIN: SectionContact -->
+<section class="py-24 bg-canvas" data-purpose="contact-and-form" id="contact">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<!-- Left Contact Information -->
+<div class="lg:col-span-5">
+<span class="font-mono text-xs uppercase tracking-widest text-teal font-semibold">CONTACT</span>
+<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark-navy mt-3 tracking-tight">
+            Parlons de votre <span class="italic-serif text-teal font-medium">projet.</span>
+</h2>
+<p class="mt-4 text-muted text-sm sm:text-base leading-relaxed">
+            Vous avez un projet d'aménagement, un besoin d'analyse cartographique ou d'expertise technique territoriale ? Notre équipe se tient à votre entière disposition.
+          </p>
+<div class="mt-10 space-y-6">
+<!-- Address item -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 text-teal">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<span class="text-xs font-mono text-muted uppercase">Adresse</span>
+<p class="text-sm font-semibold text-dark-navy mt-0.5">14 rue Camille Saint-Saëns, 92500 Rueil-Malmaison</p>
+</div>
+</div>
+<!-- Email item -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 text-teal">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<span class="text-xs font-mono text-muted uppercase">Email</span>
+<p class="text-sm font-semibold text-dark-navy mt-0.5">
+<a class="hover:text-teal transition-colors" href="mailto:adfi@infracite-ing.fr">adfi@infracite-ing.fr</a>
+</p>
+</div>
+</div>
+<!-- Phone item -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 text-teal">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<span class="text-xs font-mono text-muted uppercase">Téléphone</span>
+<p class="text-sm font-semibold text-dark-navy mt-0.5">
+<a class="hover:text-teal transition-colors" href="tel:0961273358">09 61 27 33 58</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Form Column -->
+<div class="lg:col-span-7">
+<div class="bg-white rounded-3xl p-8 sm:p-10 shadow-card border border-slate-200/80">
+<h3 class="font-display text-xl font-bold text-dark-navy mb-6">Formulaire de demande d'études</h3>
+<form action="#" class="space-y-5" method="POST" onsubmit="event.preventDefault(); alert('Votre demande a bien été envoyée à InfraCité Ingénierie.');">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block text-xs font-mono text-dark-navy uppercase mb-1.5" for="name">Nom et Prénom *</label>
+<input class="w-full rounded-xl border-slate-200 text-sm focus:border-teal focus:ring-teal bg-canvas/30 px-3.5 py-2.5" id="name" name="name" placeholder="ex. Jean Dupont" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-mono text-dark-navy uppercase mb-1.5" for="company">Organisme / Société</label>
+<input class="w-full rounded-xl border-slate-200 text-sm focus:border-teal focus:ring-teal bg-canvas/30 px-3.5 py-2.5" id="company" name="company" placeholder="ex. Ville ou Aménageur X" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block text-xs font-mono text-dark-navy uppercase mb-1.5" for="email">Adresse email *</label>
+<input class="w-full rounded-xl border-slate-200 text-sm focus:border-teal focus:ring-teal bg-canvas/30 px-3.5 py-2.5" id="email" name="email" placeholder="jean.dupont@organisme.fr" required="" type="email"/>
+</div>
+<div>
+<label class="block text-xs font-mono text-dark-navy uppercase mb-1.5" for="subject">Objet de la mission *</label>
+<input class="w-full rounded-xl border-slate-200 text-sm focus:border-teal focus:ring-teal bg-canvas/30 px-3.5 py-2.5" id="subject" name="subject" placeholder="Diagnostic foncier, SIG, cartographie..." required="" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-xs font-mono text-dark-navy uppercase mb-1.5" for="message">Description de votre besoin *</label>
+<textarea class="w-full rounded-xl border-slate-200 text-sm focus:border-teal focus:ring-teal bg-canvas/30 p-3.5" id="message" name="message" placeholder="Précisez la localisation, les enjeux techniques et les délais envisagés..." required="" rows="4"></textarea>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="text-xs text-muted font-mono">* Champs obligatoires</span>
+<button class="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-semibold tracking-wide text-white bg-teal hover:bg-teal-hover shadow-md hover:shadow-lg transition-all" type="submit">
+<span>Envoyer ma demande</span>
+<svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: SectionContact -->
+<!-- BEGIN: MainFooter -->
+<footer class="bg-dark-navy text-slate-400 text-xs border-t border-slate-800" data-purpose="footer-and-legal">
+<!-- Legal Notice Grid -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-slate-800">
+<!-- Brand summary in footer -->
+<div class="space-y-4">
+<div class="flex items-center gap-2">
+<span class="h-6 w-6 rounded-full border border-teal/40 bg-teal/10 flex items-center justify-center">
+<span class="h-3 w-3 rounded-full border border-amber/60 flex items-center justify-center">
+<svg class="w-2 h-2 text-amber fill-current" viewbox="0 0 100 100">
+<polygon points="50,15 90,85 10,85"></polygon>
+</svg>
+</span>
+</span>
+<span class="font-display font-bold text-base text-white">Infra<span class="text-teal font-extrabold">Cité</span> Ingénierie</span>
+</div>
+<p class="leading-relaxed text-[11px] text-slate-400">
+            Bureau d'études indépendant en ingénierie, topographie, géomatique, environnement et aménagement du territoire.
+          </p>
+</div>
+<!-- Legal identity -->
+<div>
+<h5 class="text-white font-mono text-[11px] uppercase tracking-wider mb-3">Identité Légale</h5>
+<ul class="space-y-1.5 text-[11px] text-slate-400 font-mono">
+<li><strong class="text-slate-300">Raison sociale :</strong> InfraCité Ingénierie</li>
+<li><strong class="text-slate-300">Forme juridique :</strong> Société par Actions Simplifiée (SAS)</li>
+<li><strong class="text-slate-300">Capital social :</strong> 1 000 €</li>
+<li><strong class="text-slate-300">SIREN :</strong> 999 744 915</li>
+<li><strong class="text-slate-300">RCS :</strong> Nanterre</li>
+</ul>
+</div>
+<!-- Corporate & Management -->
+<div>
+<h5 class="text-white font-mono text-[11px] uppercase tracking-wider mb-3">Siège &amp; Direction</h5>
+<ul class="space-y-1.5 text-[11px] text-slate-400 font-mono">
+<li><strong class="text-slate-300">Siège social :</strong> 14 rue Camille Saint-Saëns, 92500 Rueil-Malmaison</li>
+<li><strong class="text-slate-300">Directeur de la publication :</strong> Wilfried N.</li>
+<li><strong class="text-slate-300">Contact technique :</strong> adfi@infracite-ing.fr</li>
+<li><strong class="text-slate-300">Standard :</strong> 09 61 27 33 58</li>
+</ul>
+</div>
+<!-- Hosting & Notice -->
+<div>
+<h5 class="text-white font-mono text-[11px] uppercase tracking-wider mb-3">Hébergement &amp; Conformité</h5>
+<p class="text-[11px] text-slate-400 leading-relaxed mb-2">
+            Plateforme hébergée conformément aux standards européens de protection des données (RGPD).
+          </p>
+<p class="text-[10px] text-slate-500 italic">
+            Les activités réservées par la réglementation aux professionnels habilités (ex. géomètres-experts pour la délimitation foncière) ne relèvent pas du champ de nos prestations.
+          </p>
+</div>
+</div>
+<!-- Bottom bar with copyright -->
+<div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+<p>© 2026 InfraCité Ingénierie. Tous droits réservés.</p>
+<div class="flex items-center gap-6">
+<a class="hover:text-white transition-colors" href="#domaines">Domaines</a>
+<a class="hover:text-white transition-colors" href="#missions">Prestations</a>
+<a class="hover:text-white transition-colors" href="#contact">Nous contacter</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</body></html>

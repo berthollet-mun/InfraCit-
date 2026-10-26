@@ -1,0 +1,6 @@
+{
+  "name": "InfraCité Ingénierie — Vitrine & Back-Office",
+  "description": "Plateforme web et back-office d'administration d'InfraCité Ingénierie, bureau d'études en ingénierie, géomatique, environnement et aménagement du territoire.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

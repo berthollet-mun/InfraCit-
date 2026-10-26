@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "on-secondary-fixed": "#271900",
+        "inverse-surface": "#2d3132",
+        "band-dark-text": "#E4EEEC",
+        "surface-container-low": "#f1f4f4",
+        "inverse-on-surface": "#eef1f2",
+        "band-dark-bg": "#10272F",
+        "on-tertiary-fixed-variant": "#6c3a0d",
+        "on-tertiary": "#ffffff",
+        "bg-canvas": "#F2F5F3",
+        "surface-container-highest": "#e0e3e3",
+        "surface-bright": "#f7fafa",
+        "inverse-primary": "#84d3de",
+        "surface-container": "#ebeeef",
+        "outline-variant": "#bec8ca",
+        "surface-container-lowest": "#ffffff",
+        "on-error": "#ffffff",
+        "on-primary": "#ffffff",
+        "tertiary-fixed-dim": "#ffb782",
+        "on-secondary": "#ffffff",
+        "bg-soft": "#E5ECE9",
+        "tertiary-container": "#8f5628",
+        "on-primary-fixed": "#001f23",
+        "tertiary-fixed": "#ffdcc5",
+        "secondary-fixed-dim": "#feba35",
+        "surface-tint": "#006972",
+        "background": "#f7fafa",
+        "error": "#ba1a1a",
+        "on-tertiary-container": "#ffdac2",
+        "text-primary": "#10272F",
+        "surface-container-high": "#e6e9e9",
+        "band-dark-line": "#2E4952",
+        "border-hairline": "#C5D2CE",
+        "surface-variant": "#e0e3e3",
+        "secondary-container": "#feba35",
+        "primary-fixed-dim": "#84d3de",
+        "tertiary": "#723f12",
+        "primary-fixed": "#a0effa",
+        "surface-dim": "#d7dadb",
+        "on-tertiary-fixed": "#301400",
+        "surface": "#f7fafa",
+        "primary-container": "#0b6e78",
+        "on-surface-variant": "#3f494a",
+        "outline": "#6f797a",
+        "on-secondary-fixed-variant": "#5f4100",
+        "dark-bg": "#0B1B21",
+        "text-muted": "#4B6168",
+        "error-container": "#ffdad6",
+        "on-secondary-container": "#6e4c00",
+        "secondary": "#7e5700",
+        "dark-amber": "#F0B93A",
+        "secondary-fixed": "#ffdeab",
+        "on-primary-container": "#9eedf9",
+        "dark-surface": "#10262D",
+        "dark-accent": "#5CC6CC",
+        "dark-text": "#E4EEEC",
+        "primary": "#00545c",
+        "on-primary-fixed-variant": "#004f56",
+        "on-error-container": "#93000a",
+        "on-background": "#181c1d",
+        "on-surface": "#181c1d"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "space-lg": "1.5rem",
+        "gutter": "1.5rem",
+        "margin": "2rem",
+        "gutter-mobile": "1rem",
+        "space-sm": "0.5rem",
+        "space-md": "1rem",
+        "margin-mobile": "1rem",
+        "space-xl": "2.5rem",
+        "space-xs": "0.25rem"
+      },
+      "fontFamily": {
+        "body-medium": ["IBM Plex Sans"],
+        "display-hero": ["Bricolage Grotesque"],
+        "headline-md": ["Bricolage Grotesque"],
+        "display-hero-mobile": ["Bricolage Grotesque"],
+        "body-sm": ["IBM Plex Sans"],
+        "metadata-mono": ["IBM Plex Mono"],
+        "headline-lg": ["Bricolage Grotesque"],
+        "body-default": ["IBM Plex Sans"],
+        "headline-sm": ["Bricolage Grotesque"],
+        "lead": ["IBM Plex Sans"],
+        "headline-lg-mobile": ["Bricolage Grotesque"],
+        "eyebrow": ["IBM Plex Mono"],
+        "label-pill": ["IBM Plex Sans"]
+      },
+      "fontSize": {
+        "body-medium": ["1rem", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "500"}],
+        "display-hero": ["3.5rem", {"lineHeight": "1.1", "letterSpacing": "-0.025em", "fontWeight": "700"}],
+        "headline-md": ["1.5rem", {"lineHeight": "1.25", "letterSpacing": "-0.015em", "fontWeight": "700"}],
+        "display-hero-mobile": ["2.25rem", {"lineHeight": "1.15", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "body-sm": ["0.875rem", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+        "metadata-mono": ["0.8125rem", {"lineHeight": "1.4", "letterSpacing": "0.08em", "fontWeight": "400"}],
+        "headline-lg": ["2.5rem", {"lineHeight": "1.15", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "body-default": ["1rem", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+        "headline-sm": ["1.25rem", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+        "lead": ["1.125rem", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+        "headline-lg-mobile": ["1.75rem", {"lineHeight": "1.2", "letterSpacing": "-0.015em", "fontWeight": "700"}],
+        "eyebrow": ["0.75rem", {"lineHeight": "1", "letterSpacing": "0.12em", "fontWeight": "500"}],
+        "label-pill": ["0.875rem", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "500"}]
+      }
+    }
+  }
+}</script></head><body class="bg-bg-canvas font-body-default text-text-primary antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="p-space-lg"><div class="flex items-center gap-3 pb-space-lg"><div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-band-dark-bg text-on-primary shadow-sm"><span class="material-symbols-outlined text-[20px] text-dark-accent">architecture</span><div class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-dark-amber ring-2 ring-surface-container-lowest"></div></div><div class="flex flex-col"><div class="flex items-center gap-1.5"><span class="font-headline-sm text-headline-sm tracking-tight text-text-primary">InfraCité</span><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span></div><span class="font-eyebrow text-eyebrow text-text-muted tracking-widest uppercase">Ingénierie · Admin</span></div></div><nav class="flex flex-col gap-space-md mt-space-sm" data-active-classes="bg-primary-container text-on-primary shadow-sm"><div class="flex flex-col gap-1"><div class="px-space-sm py-1 font-eyebrow text-eyebrow text-text-muted uppercase tracking-widest">Vue Globale</div><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-dashboard" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a></div><div class="flex flex-col gap-1"><div class="px-space-sm py-1 font-eyebrow text-eyebrow text-text-muted uppercase tracking-widest">Contenus du Site</div><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-domaines" href="#"><span class="material-symbols-outlined text-[18px]">category</span><span>Domaines</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-prestations" href="#"><span class="material-symbols-outlined text-[18px]">engineering</span><span>Prestations</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-applications" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Applications</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-etapes" href="#"><span class="material-symbols-outlined text-[18px]">linear_scale</span><span>Étapes</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-approche" href="#"><span class="material-symbols-outlined text-[18px]">lightbulb</span><span>Approche</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-accueil" href="#"><span class="material-symbols-outlined text-[18px]">web</span><span>Page d'accueil</span></a></div><div class="flex flex-col gap-1"><div class="px-space-sm py-1 font-eyebrow text-eyebrow text-text-muted uppercase tracking-widest">Infos &amp; Contact</div><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-contact" href="#"><span class="material-symbols-outlined text-[18px]">pin_drop</span><span>Coordonnées</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-mentions" href="#"><span class="material-symbols-outlined text-[18px]">gavel</span><span>Mentions Légales</span></a><a class="flex items-center justify-between px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-messages" href="#"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px]">mail</span><span>Messages reçus</span></div><span class="px-2 py-0.5 rounded-full font-metadata-mono text-eyebrow bg-dark-amber text-on-secondary-fixed font-bold">4</span></a></div><div class="flex flex-col gap-1"><div class="px-space-sm py-1 font-eyebrow text-eyebrow text-text-muted uppercase tracking-widest">Système</div><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-parametres" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>SEO &amp; Paramètres</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="admin-utilisateurs" href="#"><span class="material-symbols-outlined text-[18px]">group</span><span>Utilisateurs</span></a></div></nav></div><div class="p-space-lg bg-surface-container-low"><a class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-full bg-surface-container-lowest font-body-sm text-body-sm font-body-medium text-text-primary hover:bg-primary-container hover:text-on-primary shadow-sm transition-all" href="#"><span class="material-symbols-outlined text-[18px]">open_in_new</span><span>Voir le site public</span></a><div class="flex items-center justify-between mt-3 pt-2 text-text-muted font-metadata-mono text-eyebrow"><span>v2.4.0-PROD</span><span class="inline-block w-2 h-2 rounded-full bg-primary-container"></span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40"><div class="h-16 w-full px-space-lg flex items-center justify-between gap-4"><div class="flex items-center gap-2 font-body-sm text-body-sm text-text-muted"><span class="font-metadata-mono text-eyebrow uppercase tracking-wider text-text-primary font-bold">INFRA-CORE</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-text-primary font-medium">Back-office</span></div><div class="flex-1 max-w-md mx-space-md"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-[18px] text-text-muted pointer-events-none">search</span><input class="w-full pl-9 pr-4 py-1.5 rounded-full bg-surface-container-low text-text-primary font-body-sm text-body-sm placeholder:text-text-muted focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Rechercher dossier, page, prestation..." type="search"/></div></div><div class="flex items-center gap-4"><button class="relative p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-dark-amber ring-2 ring-surface-container-lowest"></span></button><div class="flex items-center gap-3 pl-2"><div class="flex flex-col text-right hidden sm:flex"><span class="font-body-sm text-body-sm font-body-medium text-text-primary leading-tight">Wilfried N.</span><span class="font-metadata-mono text-eyebrow text-primary font-medium">Super Admin</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><button class="p-1.5 rounded-lg text-text-muted hover:bg-surface-container-high hover:text-error transition-colors" title="Déconnexion" type="button"><span class="material-symbols-outlined text-[18px]">logout</span></button></div></div></div></header><main class="w-full pt-16 bg-bg-canvas min-h-screen"><div class="flex flex-col w-full">
+<!-- Script pour activer l'item Messages dans la sidebar du shell -->
+<script>
+    (function() {
+      const activePath = 'admin-messages';
+      const navLinks = document.querySelectorAll('aside nav a[data-path]');
+      navLinks.forEach(link => {
+        if (link.getAttribute('data-path') === activePath) {
+          link.className = 'flex items-center justify-between px-3 py-2 rounded-lg font-body-sm text-body-sm bg-primary-container text-on-primary shadow-sm transition-colors';
+          const icon = link.querySelector('.material-symbols-outlined');
+          if (icon) icon.className = 'material-symbols-outlined text-[18px] text-on-primary';
+          const badge = link.querySelector('span:last-child');
+          if (badge) badge.className = 'px-2 py-0.5 rounded-full font-metadata-mono text-eyebrow bg-dark-amber text-on-secondary-fixed font-bold shadow-xs';
+        }
+      });
+    })();
+  </script>
+<!-- Surface principale de travail -->
+<div class="w-full max-w-[1400px] mx-auto px-space-md lg:px-space-lg py-6 flex flex-col gap-6">
+<!-- En-tête de section technique / Breadcrumbs & Quick actions -->
+<section class="flex flex-col gap-4">
+<!-- Traçabilité & Fil d'ariane monospacé -->
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2 font-metadata-mono text-eyebrow tracking-widest uppercase text-text-muted">
+<span class="inline-flex items-center gap-1.5 text-primary font-bold">
+<span class="w-2 h-2 rounded-full bg-dark-amber animate-pulse"></span>
+            SYS:CONTACT_GATEWAY
+          </span>
+<span>/</span>
+<span>INFOS &amp; CONTACT</span>
+<span>/</span>
+<span class="text-text-primary font-semibold">MESSAGES_REÇUS</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-bold text-[10px]">FLUX PUBLIC ACTIF</span>
+</div>
+<!-- Quick actions boutons pill -->
+<div class="flex items-center gap-2.5">
+<button class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-text-primary hover:bg-surface-container-high transition-colors text-body-sm font-label-pill shadow-xs" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">download</span>
+<span>Exporter CSV</span>
+</button>
+<button class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-text-primary hover:bg-surface-container-high transition-colors text-body-sm font-label-pill shadow-xs" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">done_all</span>
+<span>Tout marquer comme lu</span>
+</button>
+<div class="h-6 w-px bg-border-hairline mx-1 hidden sm:block"></div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-bg-soft text-text-muted font-metadata-mono text-eyebrow">
+<span class="material-symbols-outlined text-[15px] text-dark-accent">sync</span>
+<span>MAJ AUTOMATIQUE · 12s</span>
+</div>
+</div>
+</div>
+<!-- Titre principal & Contexte -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pt-1">
+<div class="max-w-3xl">
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight leading-none mb-2">
+            Boîte de réception des demandes
+          </h1>
+<p class="font-body-default text-body-default text-text-muted leading-relaxed max-w-2xl">
+            Gérez les sollicitations de maîtres d’ouvrage publics et privés transmises via le formulaire de contact du site vitrine d’InfraCité Ingénierie.
+          </p>
+</div>
+<!-- Indicateur métrique volumétrique -->
+<div class="flex items-center gap-3 bg-surface-container-lowest p-2.5 rounded-2xl shadow-xs self-start lg:self-auto">
+<div class="flex flex-col px-3 py-1">
+<span class="font-metadata-mono text-eyebrow uppercase text-text-muted">Total dossier</span>
+<span class="font-headline-md text-headline-md text-text-primary font-bold">18</span>
+</div>
+<div class="h-8 w-px bg-border-hairline"></div>
+<div class="flex flex-col px-3 py-1">
+<span class="font-metadata-mono text-eyebrow uppercase text-secondary">À qualifier</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold">03</span>
+</div>
+<div class="h-8 w-px bg-border-hairline"></div>
+<div class="flex flex-col px-3 py-1">
+<span class="font-metadata-mono text-eyebrow uppercase text-primary">Taux réponse</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">96%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Layout Split-View : 5 cols / 7 cols en desktop pour consultation immersive -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- ================= COLONNE DE GAUCHE : LISTE & FILTRAGE (5 cols) ================= -->
+<section class="lg:col-span-5 flex flex-col gap-4">
+<!-- Cartouche de recherche et filtres de tête -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm flex flex-col gap-3">
+<!-- Barre de recherche interne au module -->
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[18px] text-text-muted pointer-events-none">filter_list</span>
+<input class="w-full pl-9 pr-4 py-2 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:bg-surface-container transition-colors" placeholder="Filtrer par émetteur, organisme ou mot-clé..." type="search"/>
+</div>
+<!-- Pilules de segmentation filtrée -->
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<button class="px-3 py-1 rounded-full bg-primary-container text-on-primary font-metadata-mono text-eyebrow font-medium shadow-xs" type="button">
+              Tous (18)
+            </button>
+<button class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-text-primary font-metadata-mono text-eyebrow transition-colors" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-dark-amber"></span>
+              Non lus (3)
+            </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-text-muted font-metadata-mono text-eyebrow transition-colors" type="button">
+              Études &amp; Devis (9)
+            </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-text-muted font-metadata-mono text-eyebrow transition-colors" type="button">
+              Archivés (6)
+            </button>
+</div>
+</div>
+<!-- Liste des éléments de flux -->
+<div class="flex flex-col gap-3">
+<!-- Item 1 (SÉLECTIONNÉ / ACTIF / NON LU - Prioritaire) -->
+<article class="relative p-4 rounded-2xl bg-surface-container-lowest shadow-md cursor-pointer transition-all hover:translate-y-[-1px] group">
+<!-- Accent indicator vertical gauche -->
+<div class="absolute left-0 top-3 bottom-3 w-1.5 bg-primary-container rounded-r-full"></div>
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-dark-amber animate-pulse" title="Message non lu"></span>
+<span class="font-body-medium text-body-medium font-semibold text-text-primary truncate">Laurent Marchand</span>
+<span class="px-1.5 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-metadata-mono text-[10px] font-bold">PRIORITAIRE</span>
+</div>
+<span class="font-metadata-mono text-eyebrow text-text-muted whitespace-nowrap">Il y a 2h</span>
+</div>
+<div class="text-eyebrow font-metadata-mono text-primary font-medium tracking-wide uppercase mb-1">
+              CA Val de Seine · Collectivité publique
+            </div>
+<p class="font-headline-sm text-body-medium font-bold text-text-primary line-clamp-1 mb-1.5">
+              Étude d'opportunité aménagement pôle gare &amp; intermodalité
+            </p>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-2 leading-snug mb-3">
+              « Dans le cadre du schéma directeur des mobilités durables 2026-2032, nous lançons une consultation restreinte pour éclairer la faisabilité technique et foncière des abords du pôle d'échanges... »
+            </p>
+<div class="flex items-center justify-between pt-2 border-t-0 bg-surface-container-low/60 -mx-4 -mb-4 px-4 py-2 rounded-b-2xl">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-lowest text-text-muted font-metadata-mono text-[11px]">01 · INFRA</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container-lowest text-text-muted font-metadata-mono text-[11px]">04 · URBA</span>
+</div>
+<div class="flex items-center gap-1 text-primary text-body-sm font-metadata-mono text-eyebrow font-semibold">
+<span>Dossier actif</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Item 2 (NON LU - Aménageur privé) -->
+<article class="p-4 rounded-2xl bg-surface-container-lowest/80 hover:bg-surface-container-lowest shadow-xs hover:shadow-sm cursor-pointer transition-all">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-dark-amber" title="Message non lu"></span>
+<span class="font-body-medium text-body-medium font-semibold text-text-primary truncate">Sophie Vanderberg</span>
+<span class="px-2 py-0.5 rounded-full bg-bg-soft text-text-muted font-metadata-mono text-[10px]">AMÉNAGEUR PRIVÉ</span>
+</div>
+<span class="font-metadata-mono text-eyebrow text-text-muted whitespace-nowrap">Hier, 16:30</span>
+</div>
+<div class="text-eyebrow font-metadata-mono text-text-muted uppercase mb-1">
+              Cabinet UrbanConseil · Île-de-France
+            </div>
+<p class="font-body-medium text-body-medium font-medium text-text-primary line-clamp-1 mb-1">
+              Production cartographique SIG &amp; cadastre multi-sources
+            </p>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-2 leading-snug">
+              Demande de chiffrage pour une mission d'assemblage parcellaire et d'analyse de contraintes PLUi sur une emprise de 14 hectares...
+            </p>
+</article>
+<!-- Item 3 (LU - SEM d'aménagement) -->
+<article class="p-4 rounded-2xl bg-surface-container-lowest/60 hover:bg-surface-container-lowest shadow-xs hover:shadow-sm cursor-pointer transition-all">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-text-muted">drafts</span>
+<span class="font-body-medium text-body-medium font-normal text-text-primary truncate">Marc Delamare</span>
+<span class="px-2 py-0.5 rounded-full bg-bg-soft text-text-muted font-metadata-mono text-[10px]">SEM MIXTE</span>
+</div>
+<span class="font-metadata-mono text-eyebrow text-text-muted whitespace-nowrap">09 Mai</span>
+</div>
+<div class="text-eyebrow font-metadata-mono text-text-muted uppercase mb-1">
+              SEM Aménagement IdF · Direction Projets
+            </div>
+<p class="font-body-medium text-body-medium text-text-muted line-clamp-1 mb-1">
+              Diagnostic technique préalable requalification friche ferroviaire
+            </p>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-1 leading-snug">
+              Confirmation de réception de nos éléments de méthodologie. Attente de la commission technique du 22 mai prochain.
+            </p>
+</article>
+<!-- Item 4 (LU - Ville de Rueil) -->
+<article class="p-4 rounded-2xl bg-surface-container-lowest/60 hover:bg-surface-container-lowest shadow-xs hover:shadow-sm cursor-pointer transition-all">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-text-muted">drafts</span>
+<span class="font-body-medium text-body-medium font-normal text-text-primary truncate">Hélène Rousseau</span>
+<span class="px-2 py-0.5 rounded-full bg-bg-soft text-text-muted font-metadata-mono text-[10px]">COMMUNE</span>
+</div>
+<span class="font-metadata-mono text-eyebrow text-text-muted whitespace-nowrap">08 Mai</span>
+</div>
+<div class="text-eyebrow font-metadata-mono text-text-muted uppercase mb-1">
+              Ville de Rueil-Malmaison · Pôle Cadre de Vie
+            </div>
+<p class="font-body-medium text-body-medium text-text-muted line-clamp-1 mb-1">
+              Assistance technique et conseil trame verte et bleue
+            </p>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-1 leading-snug">
+              Échange préliminaire sur le dimensionnement des ouvrages d'infiltration des eaux pluviales et perméabilité des sols.
+            </p>
+</article>
+<!-- Item 5 (TRAITÉ - Nexity) -->
+<article class="p-4 rounded-2xl bg-surface-container-lowest/40 hover:bg-surface-container-lowest shadow-xs hover:shadow-sm cursor-pointer transition-all opacity-85">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">task_alt</span>
+<span class="font-body-medium text-body-medium text-text-muted truncate">Julien Blanchard</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-metadata-mono text-[10px] font-bold">TRAITÉ</span>
+</div>
+<span class="font-metadata-mono text-eyebrow text-text-muted whitespace-nowrap">04 Mai</span>
+</div>
+<div class="text-eyebrow font-metadata-mono text-text-muted uppercase mb-1">
+              Groupe Nexity Aménagement · Direction Grands Projets
+            </div>
+<p class="font-body-medium text-body-medium text-text-muted line-clamp-1">
+              Étude de faisabilité et diagnostic environnemental ZAC des Coteaux
+            </p>
+</article>
+</div>
+<!-- Pagination de liste discrète et ergonomique -->
+<div class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-lowest/80 text-text-muted font-metadata-mono text-eyebrow">
+<span>AFFICHAGE 1-5 SUR 18 MESSAGES</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded-lg hover:bg-surface-container text-text-muted hover:text-text-primary disabled:opacity-40" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-text-primary font-bold">1</span>
+<button class="p-1 rounded-lg hover:bg-surface-container text-text-muted hover:text-text-primary" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- ================= COLONNE DE DROITE : DÉTAIL DU MESSAGE (7 cols) ================= -->
+<section class="lg:col-span-7 flex flex-col gap-6">
+<!-- Fiche conteneur principale du message sélectionné -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 lg:p-8 shadow-sm flex flex-col gap-6">
+<!-- En-tête de la demande sélectionnée -->
+<div class="flex flex-col gap-3 pb-6 border-b-0 bg-surface-container-low/40 -mx-6 -mt-6 p-6 lg:-mx-8 lg:-mt-8 lg:p-8 rounded-t-3xl">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-dark-amber/20 text-on-secondary-fixed font-metadata-mono text-eyebrow font-bold">
+<span class="w-2 h-2 rounded-full bg-dark-amber"></span>
+                  HAUTE PRIORITÉ
+                </span>
+<span class="px-3 py-1 rounded-full bg-bg-soft text-text-primary font-metadata-mono text-eyebrow font-medium">
+                  RÉF : MSG-2026-0511-04
+                </span>
+<span class="px-3 py-1 rounded-full bg-primary-container/15 text-primary font-metadata-mono text-eyebrow font-semibold">
+                  01 - INGÉNIERIE · 04 - TERRITOIRES
+                </span>
+</div>
+<!-- Actions contextuelles en icônes + labels -->
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-surface-container-high transition-colors" title="Imprimer ou générer PDF" type="button">
+<span class="material-symbols-outlined text-[20px]">print</span>
+</button>
+<button class="p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-surface-container-high transition-colors" title="Transférer à un collaborateur" type="button">
+<span class="material-symbols-outlined text-[20px]">forward</span>
+</button>
+<button class="p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-surface-container-high transition-colors" title="Archiver la demande" type="button">
+<span class="material-symbols-outlined text-[20px]">archive</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-text-primary hover:bg-primary-container hover:text-on-primary transition-all font-label-pill text-body-sm shadow-xs" type="button">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Clôturer</span>
+</button>
+</div>
+</div>
+<!-- Grand Titre de la mission -->
+<div>
+<h2 class="font-headline-lg text-headline-md lg:text-headline-lg text-text-primary tracking-tight leading-snug">
+                Étude d'opportunité aménagement pôle gare &amp; intermodalité
+              </h2>
+<div class="flex items-center gap-2 mt-1 text-text-muted font-metadata-mono text-eyebrow">
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+<span>Transmis via le formulaire Web · Aujourd'hui à 09:42 (il y a 2h14)</span>
+</div>
+</div>
+</div>
+<!-- Cartouche de l'interlocuteur / Donneur d'ordre -->
+<div class="p-5 rounded-2xl bg-bg-soft/70 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<!-- Avatar typographique -->
+<div class="w-13 h-13 w-12 h-12 rounded-2xl bg-band-dark-bg text-dark-accent flex items-center justify-center font-headline-sm font-bold shadow-xs">
+                LM
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-body-medium font-bold text-text-primary">Laurent Marchand</span>
+<span class="inline-block px-2 py-0.5 rounded-md bg-surface-container-lowest font-metadata-mono text-[10px] text-primary font-bold">
+                    DONNEUR D'ORDRE
+                  </span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted">Directeur de l'Aménagement, des Transports et des Mobilités</span>
+<span class="font-metadata-mono text-eyebrow text-text-primary font-medium">Communauté d'Agglomération Val de Seine (78)</span>
+</div>
+</div>
+<!-- Coordonnées rapides d'échange -->
+<div class="flex flex-col sm:flex-row md:flex-col gap-2 font-metadata-mono text-body-sm pt-2 md:pt-0">
+<a class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary text-text-primary transition-colors text-eyebrow font-medium" href="mailto:laurent.marchand@agglo-valdeseine.fr">
+<span class="material-symbols-outlined text-[16px] text-primary">mail</span>
+<span>laurent.marchand@agglo-valdeseine.fr</span>
+</a>
+<a class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-text-primary transition-colors text-eyebrow" href="tel:0139224510">
+<span class="material-symbols-outlined text-[16px] text-text-muted">call</span>
+<span>01 39 22 45 10 (Ligne directe)</span>
+</a>
+</div>
+</div>
+<!-- Métadonnées techniques du formulaire soumises par le client -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<div class="p-3.5 rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-metadata-mono text-[11px] uppercase tracking-wider text-text-muted">Type de Maîtrise d'Ouvrage</span>
+<span class="font-body-medium text-body-sm font-semibold text-text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">account_balance</span>
+                Collectivité territoriale (Public)
+              </span>
+</div>
+<div class="p-3.5 rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-metadata-mono text-[11px] uppercase tracking-wider text-text-muted">Horizon de rendu</span>
+<span class="font-body-medium text-body-sm font-semibold text-text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">event</span>
+                Avant fin Q3 2026 (Phase 1)
+              </span>
+</div>
+<div class="p-3.5 rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-metadata-mono text-[11px] uppercase tracking-wider text-text-muted">Estimation d'enveloppe</span>
+<span class="font-body-medium text-body-sm font-semibold text-text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">euro</span>
+                Consultation restreinte &lt; 90k€
+              </span>
+</div>
+</div>
+<!-- Corps du message reçu & Spécifications transmises -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-eyebrow text-eyebrow uppercase tracking-widest text-text-muted font-bold flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                Descriptif de la mission transmis par le requérant
+              </span>
+<span class="font-metadata-mono text-eyebrow text-text-muted">1 140 caractères</span>
+</div>
+<!-- Contenu textuel authentique et réaliste de génie civil / urba -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest shadow-sm leading-relaxed text-text-primary font-body-default flex flex-col gap-4">
+<p>
+                « Bonjour l'équipe InfraCité,
+              </p>
+<p>
+                Dans le cadre de l'actualisation de notre Schéma Directeur des Mobilités Actives et du projet de réaménagement du secteur de la gare centrale (liaison RER / réseau de bus en site propre), la Direction de l'Aménagement recherche un bureau d'études capable d'assurer une mission conjointe :
+              </p>
+<ul class="list-disc pl-5 flex flex-col gap-1.5 text-body-sm">
+<li><strong class="font-semibold text-text-primary">Diagnostic géotechnique et VRD :</strong> analyse de charge des dalles existantes, gestion des réseaux enterrés d'assainissement unitaire et contraintes de perméabilisation des sols.</li>
+<li><strong class="font-semibold text-text-primary">Modélisation spatiale et SIG :</strong> intégration des flux piétons / cyclistes aux heures de pointe et calage topographique précis des emprises foncières sous statut SNCF Réseau et Domaine Public Communal.</li>
+<li><strong class="font-semibold text-text-primary">Scénarios d'opportunité :</strong> élaboration de trois variantes d'aménagement avec estimation financière prévisionnelle pour présentation devant le comité de pilotage des élus en octobre.</li>
+</ul>
+<p>
+                Nous avons pris connaissance de vos récentes interventions similaires sur le pôle multimodal de Saint-Quentin et souhaiterions convenir d'un rendez-vous technique de cadrage d'ici la semaine prochaine.
+              </p>
+<p class="pt-2 text-text-muted">
+                Bien cordialement,<br/>
+<strong class="text-text-primary">Laurent Marchand</strong> · Directeur Aménagement &amp; Mobilités
+              </p>
+</div>
+</div>
+<!-- Document joint attaché au message -->
+<div class="flex flex-col gap-2">
+<span class="font-eyebrow text-eyebrow uppercase tracking-widest text-text-muted font-bold">
+              Document attaché (1 pièce jointe)
+            </span>
+<div class="p-3.5 rounded-2xl bg-surface-container-low hover:bg-surface-container flex items-center justify-between transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-error/10 text-error flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-medium text-body-sm font-semibold text-text-primary">CCTP_Pre-cadrage_Pole_Gare_V1.pdf</span>
+<span class="font-metadata-mono text-eyebrow text-text-muted">3.4 Mo · Rédigé le 10/05/2026 · Certifié virus-free</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest text-text-primary hover:bg-primary-container hover:text-on-primary transition-colors text-body-sm font-label-pill shadow-xs flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Aperçu</span>
+</button>
+<button class="p-2 rounded-full bg-surface-container-lowest text-text-primary hover:bg-surface-container-high transition-colors shadow-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ================= BLOC D'ACTION & RÉPONSE RAPIDE INTÉGRÉE ================= -->
+<div class="mt-2 pt-6 rounded-2xl bg-bg-soft/40 p-5 flex flex-col gap-4">
+<!-- Sélecteur d'action : Répondre ou Note interne -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<button class="px-3.5 py-1.5 rounded-full bg-primary-container text-on-primary font-label-pill text-body-sm font-medium shadow-xs flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px]">reply</span>
+<span>Répondre par e-mail officiel</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-text-primary hover:bg-surface-container font-label-pill text-body-sm transition-colors flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px] text-text-muted">sticky_note_2</span>
+<span>Note interne d'ingénieur</span>
+</button>
+</div>
+<div class="hidden sm:flex items-center gap-2 font-metadata-mono text-eyebrow text-text-muted">
+<span>EXPÉDITEUR :</span>
+<span class="text-text-primary font-semibold">contact@infracite-ingenierie.fr</span>
+</div>
+</div>
+<!-- Éditeur de texte pré-formaté -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex flex-wrap items-center justify-between gap-2 text-eyebrow font-metadata-mono text-text-muted pb-2 border-b-0 bg-surface-container-low/50 -mx-4 -mt-4 px-4 py-2 rounded-t-2xl">
+<div class="flex items-center gap-3">
+<span>À : <span class="text-text-primary font-medium">laurent.marchand@agglo-valdeseine.fr</span></span>
+<span class="hidden md:inline">|</span>
+<span class="hidden md:inline">OBJET : <span class="text-text-primary font-medium">Re: Étude d'opportunité aménagement pôle gare &amp; intermodalité [INFRA-641]</span></span>
+</div>
+<div class="flex items-center gap-1 text-primary cursor-pointer hover:underline">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+<span>Modèle : Accusé &amp; Cadrage RDV</span>
+</div>
+</div>
+<!-- Zone de saisie textuelle -->
+<textarea class="w-full bg-transparent font-body-default text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none resize-none leading-relaxed" placeholder="Rédigez votre réponse officielle..." rows="4">Monsieur Marchand,
+
+Nous accusons bonne réception de votre demande concernant l'étude d'opportunité du pôle gare de votre agglomération. 
+
+Nos experts en VRD et modélisation territoriale ont examiné votre cahier de pré-cadrage. Nous serions ravis d'organiser une réunion de cadrage technique en visio-conférence ou sur site le jeudi 21 mai prochain à 14h30.
+
+Dans cette attente, nous tenons à votre disposition nos références détaillées.</textarea>
+<!-- Barre d'outils d'envoi & conversion en opportunité d'affaires -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+<div class="flex items-center gap-2">
+<button class="p-1.5 rounded-lg text-text-muted hover:bg-surface-container-high transition-colors" title="Joindre plaquette ou document" type="button">
+<span class="material-symbols-outlined text-[18px]">attach_file</span>
+</button>
+<button class="p-1.5 rounded-lg text-text-muted hover:bg-surface-container-high transition-colors" title="Insérer créneau agenda" type="button">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+</button>
+<span class="text-[12px] font-metadata-mono text-text-muted">Signature automatique : Wilfried N. (Directeur d'Études)</span>
+</div>
+<div class="flex items-center gap-2.5">
+<button class="px-4 py-2 rounded-full bg-surface-container text-text-primary hover:bg-surface-container-high text-body-sm font-label-pill transition-colors flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">assignment_add</span>
+<span>Créer opportunité d'affaire</span>
+</button>
+<button class="px-5 py-2 rounded-full bg-primary-container text-on-primary hover:opacity-95 shadow-sm text-body-sm font-label-pill transition-all flex items-center gap-2" type="button">
+<span>Envoyer la réponse officielle</span>
+<span class="material-symbols-outlined text-[16px]">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- ================= BANDEAU TECHNIQUE & CONFORMITÉ INFRA-CORE ================= -->
+<footer class="mt-4 p-4 rounded-2xl bg-band-dark-bg text-band-dark-text flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest/10 flex items-center justify-center text-dark-accent">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-metadata-mono text-eyebrow tracking-wider uppercase text-dark-accent font-semibold">
+            Protection des données &amp; Conformité RGPD · Maîtrise d'Ouvrage
+          </span>
+<span class="font-body-sm text-body-sm text-surface-container-high/70 text-xs">
+            Stockage souverain chiffré AES-256 · Purge automatique des données inactives à 36 mois · Certifié ISO 27001
+          </span>
+</div>
+</div>
+<div class="flex items-center gap-4 font-metadata-mono text-eyebrow text-surface-container-high/60">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          SERVEUR : TLS 1.3 OK
+        </span>
+<span>ID-GATEWAY : FR-PAR-02</span>
+</div>
+</footer>
+</div>
+</div></main></div></body></html>
