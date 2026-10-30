@@ -29,9 +29,13 @@ npm run build
 
 ## Avant publication
 
-- La mise en ligne doit fournir `ADMIN_EMAIL` et `ADMIN_PASSWORD` en variables d'environnement ; le serveur refuse de démarrer en mode production sans elles. Utiliser un mot de passe long et unique.
-- Héberger l'API sur un serveur Node avec un volume persistant pour `server/data/site.sqlite`, ou définir `DATABASE_PATH` vers un autre emplacement persistant. Un hébergement statique seul ne peut pas recevoir les demandes de contact ni conserver les visites.
+- Pour un hébergement **Node**, fournir `ADMIN_EMAIL` et `ADMIN_PASSWORD` en variables d'environnement ; le serveur refuse de démarrer en mode production sans elles. Utiliser un mot de passe long et unique.
+- Pour un hébergement **Node**, conserver un volume persistant pour `server/data/site.sqlite`, ou définir `DATABASE_PATH` vers un autre emplacement persistant. Un hébergement statique seul ne peut pas recevoir les demandes de contact ni conserver les visites.
 - Les sessions administrateur sont conservées en mémoire et expirent après 12 heures ; un redémarrage du serveur les termine.
 - Les photographies de la maquette sont des visuels d'illustration générés. Les remplacer par des photos autorisées de l'entreprise ou de ses missions avant publication.
 - Vérifier les coordonnées et mentions légales fournies dans le brief.
 - Les anciens écrans de gestion de contenus présents dans le dépôt ne pilotent pas encore la nouvelle page publique.
+
+## Hébergement Loopia
+
+L'offre Loopia Maison utilise PHP et MariaDB. Une API PHP compatible avec les mêmes routes `/api` est disponible dans `loopia/public_html/api/index.php`, avec son schéma SQL et ses instructions dans [loopia/README.md](loopia/README.md). Le site React reste généré par `npm run build` ; l'API Node/SQLite reste l'environnement local de développement. Ne publiez jamais le fichier de configuration réel dans Git ou dans `public_html`.
