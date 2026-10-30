@@ -63,7 +63,7 @@
 @keyframes drift { to { transform: translate3d(22px,-12px,0); } }
 .corporate-site .hero-content { min-height: 942px; display: flex; flex-direction: column; padding-top: 144px; padding-bottom: 112px; }
 .corporate-site .hero-meta { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.corporate-site .hero .eyebrow { padding: 9px 15px; border-radius: 5px; background: rgba(230,224,233,.2); font-size: 16px; font-weight: 750; letter-spacing: .045em; }
+.corporate-site .hero .eyebrow { padding: 9px 15px; border-radius: 5px; background: rgba(230,224,233,.2); font-size: 18px; font-weight: 750; letter-spacing: .035em; line-height:1.4; }
 .corporate-site .hero .eyebrow .marker { width:10px; height:10px; }
 .corporate-site .hero-main { max-width: 810px; margin-top: 92px; }
 .corporate-site .hero h1 { max-width: 800px; font-size: clamp(42px, 4.8vw, 62px); line-height: 1.08; letter-spacing: -.045em; font-weight: 800; }
@@ -294,7 +294,7 @@
   .corporate-site .hero { min-height: 870px; }
   .corporate-site .hero-shade { background: linear-gradient(90deg, rgba(50,47,53,.95), rgba(50,47,53,.7)); }
   .corporate-site .hero-content { min-height: 870px; padding-top: 116px; padding-bottom: 70px; }
-  .corporate-site .hero .eyebrow { font-size: 12px; letter-spacing: .02em; line-height: 1.5; }
+  .corporate-site .hero .eyebrow { font-size: 14px; letter-spacing: .01em; line-height: 1.5; }
   .corporate-site .hero-main { margin-top: 56px; }
   .corporate-site .hero h1 { font-size: clamp(36px, 9vw, 52px); }
   .corporate-site .hero-main > p { margin-top: 25px; font-size: 14px; }
