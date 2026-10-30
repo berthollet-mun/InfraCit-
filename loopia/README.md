@@ -1,23 +1,23 @@
-# API InfraCité chez Loopia
+# API InfraCité : préparation Loopia
 
-Le front React reste hébergé sur Vercel. Loopia héberge uniquement l'API PHP sur `api-infracite.acv-drc.org` et la base MariaDB dédiée `acv_drc_org_db_1` sur `mysql334.loopia.se`. Le domaine principal `acv-drc.org` et sa base WordPress ne sont pas modifiés.
+Le front React est hébergé sur Vercel. La base MariaDB dédiée à InfraCité existe chez Loopia sous le nom `acv_drc_org_db_1`, sur `mysql334.loopia.se`. Loopia tire le nom d'une base du domaine choisi lors de sa création, mais cette base est distincte de la base WordPress de l'autre site et peut servir à un autre domaine. Les tables `ic_visits`, `ic_messages` et `ic_login_attempts` ont été créées.
 
-## Base de données
+**Ne pas utiliser `acv-drc.org` ni ses sous-domaines pour l'API InfraCité.** Le sous-domaine `api-infracite.acv-drc.org` créé pendant la préparation est laissé en place à la demande du propriétaire, mais les fichiers InfraCité en ont été retirés. Il ne doit pas être configuré dans Vercel.
 
-1. Dans phpMyAdmin, choisir `acv_drc_org_db_1` puis exécuter `schema.sql` pour créer `ic_visits`, `ic_messages` et `ic_login_attempts`.
-2. L'utilisateur phpMyAdmin ne nécessite les droits `CREATE` et `INDEX` que pendant cet import. Retirer ces deux droits dès que les tables sont créées. L'utilisateur PHP doit conserver uniquement les droits nécessaires à l'exécution (lecture, écriture et suppression).
-3. Si les données locales doivent être reprises, lancer `node scripts/export-loopia-data.mjs`. Le fichier privé `server/data/loopia-migration.sql` contient les messages de contact. L'importer une seule fois après le schéma, avec l'accord de transfert des données. Ne jamais le committer ni le copier dans le dossier public.
+## État et suite
 
-## API PHP
+- La base dédiée est prête. L'utilisateur PHP a les droits de lecture, écriture et suppression nécessaires. Les droits `CREATE` et `INDEX` ajoutés temporairement à l'utilisateur phpMyAdmin ont été retirés après l'import du schéma.
+- Le code PHP est prêt dans `public_html/api/index.php`. Il n'est actuellement publié sous aucune adresse InfraCité indépendante.
+- Pour héberger cette API chez Loopia avec HTTPS, ajouter d'abord au compte un domaine indépendant contrôlé par InfraCité, puis créer un sous-domaine API sous celui-ci. Ne pas modifier le DNS ou les fichiers de `acv-drc.org`.
+- Quand l'API répondra en HTTPS sur cette adresse indépendante, router les requêtes Vercel `/api/*` vers elle. Le front utilise déjà ces chemins relatifs.
 
-1. Dans Loopia, configurer `api-infracite.acv-drc.org` en UNIX avec PHP 8.4 et Apache 2.4, et activer HTTPS.
-2. Copier `infracite-config.example.php` dans le dossier du sous-domaine, **au-dessus** de `public_html`, sous le nom `infracite-config.php`. Y renseigner l'utilisateur et le mot de passe de la base, l'e-mail administrateur et un hash de mot de passe administrateur produit par `password_hash(..., PASSWORD_DEFAULT)`. Le fichier réel reste hors de Git et hors du dossier public.
-   Pour préparer le déploiement localement, copier `deployment.local.example.json` en `deployment.local.json` et y saisir les identifiants FTP et MariaDB ainsi qu'un mot de passe administrateur unique. Ce fichier est ignoré par Git ; ne le partager ni dans une conversation ni dans une archive publique.
-3. Copier `public_html/.htaccess` et `public_html/api/index.php` dans les emplacements correspondants du dossier du sous-domaine. Aucun build React n'est nécessaire sur Loopia.
-4. Vérifier `https://api-infracite.acv-drc.org/api/health`, puis les routes de visite, contact, session et tableau de bord.
+## Déploiement lorsque l'adresse indépendante est prête
 
-## DNS et connexion au front
+1. Configurer le nouveau sous-domaine en UNIX avec une version PHP prise en charge par Loopia et Apache 2.4, puis activer HTTPS.
+2. Copier `infracite-config.example.php` dans le dossier du nouveau sous-domaine, **au-dessus** de `public_html`, sous le nom `infracite-config.php`. Renseigner le compte de base dédié, l'e-mail administrateur et un hash produit par `password_hash(..., PASSWORD_DEFAULT)`. Le fichier réel reste hors de Git et hors du dossier public.
+3. Copier `public_html/.htaccess` et `public_html/api/index.php` aux emplacements correspondants sur le nouveau sous-domaine. Aucun build React n'est nécessaire sur Loopia.
+4. Vérifier `/api/health`, puis les routes de visite, contact, session et tableau de bord sur l'adresse HTTPS définitive.
 
-Les serveurs de noms publics de `acv-drc.org` ne sont pas ceux de Loopia. Créer chez le fournisseur DNS actuel un enregistrement **A** `api-infracite` vers `93.188.2.52` (adresse indiquée par le DNS Loopia), sans modifier les autres enregistrements ni les serveurs de noms. Vérifier la résolution publique et le certificat HTTPS avant de router les requêtes du front Vercel `/api/*` vers cette API. Le domaine `infracite.fr` est remis à plus tard.
+Pour préparer le déploiement localement, `deployment.local.example.json` peut être copié en `deployment.local.json`. Ce dernier est ignoré par Git et ne doit être partagé ni dans une conversation ni dans une archive publique.
 
-La configuration du proxy Vercel doit conserver le chemin `/api/*` et transmettre les cookies de session, pour que le front continue à utiliser les mêmes URLs relatives. Ne pas publier ce proxy tant que l'API et HTTPS ne sont pas opérationnels.
+Le fichier privé `server/data/loopia-migration.sql` peut reprendre les visites et messages locaux après accord de transfert. Ne pas le committer ni l'importer plusieurs fois.
