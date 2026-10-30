@@ -4,6 +4,7 @@ dist/
 server/data/
 deploy/
 loopia/infracite-config.php
+loopia/deployment.local.json
 coverage/
 .DS_Store
 *.log

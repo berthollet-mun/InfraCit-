@@ -1,0 +1,11 @@
+{
+  "ftpHost": "ftpcluster.loopia.se",
+  "ftpUser": "",
+  "ftpPassword": "",
+  "dbHost": "mysql334.loopia.se",
+  "dbName": "acv_drc_org_db_1",
+  "dbUser": "bertho@a401748",
+  "dbPassword": "",
+  "adminEmail": "sagelusenge@gmail.com",
+  "adminPassword": ""
+}
