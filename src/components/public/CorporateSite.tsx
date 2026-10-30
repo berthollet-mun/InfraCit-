@@ -61,10 +61,10 @@ const missions = [
 ];
 
 const applications = [
-  { name: 'Territoires', title: 'Dynamiques territoriales et projets d’aménagement', image: images.urbanisme, alt: 'Vue aérienne d’un territoire urbanisé' },
-  { name: 'Urbanisme', title: 'Urbanisme opérationnel', image: images.ingenierie, alt: 'Projet d’infrastructure en cours d’étude' },
-  { name: 'Espace', title: 'Connaissance et représentation des sites', image: images.geomatique, alt: 'Analyse géomatique sur des cartes numériques' },
-  { name: 'Environnement', title: 'Enjeux environnementaux des territoires', image: images.environnement, alt: 'Paysage de zone humide et bassin versant' },
+  { name: 'Territoires', title: 'Dynamiques territoriales', description: 'Appui stratégique aux schémas de cohérence territoriale (SCoT), études d’intercommunalité et identification des pôles de développement économique.', image: images.urbanisme, alt: 'Vue aérienne d’un territoire urbanisé' },
+  { name: 'Urbanisme', title: 'Urbanisme opérationnel', description: 'Études de faisabilité de ZAC, requalification de centres-bourgs, valorisation de friches industrielles et programmation des espaces publics partagés.', image: images.ingenierie, alt: 'Projet d’infrastructure en cours d’étude' },
+  { name: 'Espace', title: 'Représentation des sites', description: 'Cartographie fine du foncier, relevés de corps de rue, géoréférencement d’infrastructures souterraines et modélisation 3D d’emprises contraintes.', image: images.geomatique, alt: 'Analyse géomatique sur des cartes numériques' },
+  { name: 'Environnement', title: 'Enjeux environnementaux', description: 'Diagnostics des continuités écologiques, plans de gestion des eaux pluviales et prise en compte des risques naturels majeurs (inondation, retrait-gonflement des argiles).', image: images.environnement, alt: 'Paysage de zone humide et bassin versant' },
 ];
 
 const process = [
@@ -255,7 +255,7 @@ function Applications() {
     <section id="applications" className="section applications-section">
       <div className="container">
         <SectionHead index="03" label="CHAMPS D’APPLICATION" title="Des problématiques variées, une même exigence de clarté." />
-        <div className="application-grid">{applications.map((application, index) => <Reveal key={application.name} className="application-card" delay={index * 0.07}><img src={application.image} alt={application.alt} loading="lazy" /><div className="application-shade" /><div className="application-copy"><span>0{index + 1} / {application.name}</span><h3>{application.title}</h3><ArrowUpRight size={20} /></div></Reveal>)}</div>
+        <div className="application-grid">{applications.map((application, index) => <Reveal key={application.name} className="application-card" delay={index * 0.07}><img src={application.image} alt={application.alt} loading="lazy" /><div className="application-shade" /><div className="application-copy" tabIndex={0} role="group" aria-label={application.title} aria-describedby={`application-description-${index}`}><span>0{index + 1} / {application.name}</span><h3>{application.title}</h3><p id={`application-description-${index}`}>{application.description}</p><ArrowUpRight size={20} aria-hidden="true" /></div></Reveal>)}</div>
       </div>
     </section>
   );

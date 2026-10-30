@@ -154,16 +154,21 @@
 /* Applications */
 .corporate-site .applications-section { background: var(--paper); }
 .corporate-site .application-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.corporate-site .application-card { position: relative; height: clamp(350px, 31vw, 490px); overflow: hidden; border-radius: 16px; background: #322f35; color: white; }
+.corporate-site .application-card { position: relative; height: clamp(420px, 33vw, 490px); overflow: hidden; border-radius: 16px; background: #322f35; color: white; }
 .corporate-site .application-card img, .corporate-site .application-shade { position: absolute; inset: 0; width: 100%; height: 100%; }
 .corporate-site .application-card img { object-fit: cover; transition: transform .9s cubic-bezier(.2,.8,.2,1); }
-.corporate-site .application-card:hover img { transform: scale(1.06); }
+.corporate-site .application-card:hover img, .corporate-site .application-card:focus-within img { transform: scale(1.06); }
 .corporate-site .application-shade { background: linear-gradient(0deg, rgba(50,47,53,.9), rgba(50,47,53,.05) 72%); }
-.corporate-site .application-copy { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; }
+.corporate-site .application-shade::after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgba(34,28,39,.97),rgba(34,28,39,.78) 56%,rgba(34,28,39,.2)); opacity:0; transition:opacity .4s ease; }
+.corporate-site .application-card:hover .application-shade::after, .corporate-site .application-card:focus-within .application-shade::after { opacity:1; }
+.corporate-site .application-copy { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; outline:none; }
+.corporate-site .application-copy:focus-visible { outline:3px solid #ffdf93; outline-offset:-7px; border-radius:16px; }
 .corporate-site .application-copy > span { color: #ffdf93; }
-.corporate-site .application-copy h3 { max-width: 460px; margin-top: 10px; font-size: clamp(28px, 2.8vw, 43px); line-height: 1.12; letter-spacing: -.045em; font-weight: 600; }
-.corporate-site .application-copy svg { position: absolute; right: 32px; bottom: 35px; transition: transform .25s; }
-.corporate-site .application-card:hover .application-copy svg { transform: translate(4px,-4px); }
+.corporate-site .application-copy h3 { max-width: 460px; margin-top: 10px; padding-right:30px; font-size: clamp(28px, 2.8vw, 43px); line-height: 1.12; letter-spacing: -.045em; font-weight: 600; }
+.corporate-site .application-copy p { max-width:500px; max-height:0; margin:0; overflow:hidden; opacity:0; transform:translateY(12px); color:#f3edf2; font-size:16px; line-height:1.58; transition:max-height .5s cubic-bezier(.2,.8,.2,1),margin .5s cubic-bezier(.2,.8,.2,1),opacity .3s ease,transform .5s cubic-bezier(.2,.8,.2,1); }
+.corporate-site .application-card:hover .application-copy p, .corporate-site .application-card:focus-within .application-copy p { max-height:250px; margin-top:20px; opacity:1; transform:translateY(0); }
+.corporate-site .application-copy svg { position: absolute; right: 32px; top: 32px; transition: transform .25s; }
+.corporate-site .application-card:hover .application-copy svg, .corporate-site .application-card:focus-within .application-copy svg { transform: translate(4px,-4px); }
 
 /* Method */
 .corporate-site .process-section { background: #f2ecf4; }
@@ -335,10 +340,12 @@
   .corporate-site .mission-card { min-height: 300px; padding: 25px; }
   .corporate-site .mission-card h3 { margin-top: 35px; font-size: 29px; }
   .corporate-site .mission-output { margin-top: 26px; }
-  .corporate-site .application-card { height: 370px; }
+  .corporate-site .application-card { height: 430px; }
+  .corporate-site .application-shade::after { opacity:1; }
   .corporate-site .application-copy { padding: 25px; }
   .corporate-site .application-copy h3 { font-size: 33px; padding-right: 25px; }
-  .corporate-site .application-copy svg { right: 23px; bottom: 26px; }
+  .corporate-site .application-copy p { max-height:none; margin-top:18px; opacity:1; transform:none; font-size:14px; line-height:1.5; }
+  .corporate-site .application-copy svg { right: 23px; top: 25px; }
   .corporate-site .process-grid { grid-template-columns: 1fr; gap: 0; padding: 0 0 0 12px; }
   .corporate-site .process-grid::before { top: 10px; bottom: 18px; left: 17px; width: 1px; height: auto; right: auto; }
   .corporate-site .process-step { display: grid; grid-template-columns: 27px 1fr; padding-bottom: 36px; }
@@ -371,6 +378,12 @@
   .corporate-site .brand-copy strong { font-size:12px; }
   .corporate-site .brand-copy small { font-size:7px; }
   .corporate-site .header-login { font-size:9px; padding:8px; }
+  .corporate-site .application-card { height:460px; }
+  .corporate-site .application-copy h3 { font-size:29px; }
+}
+@media (hover: none) {
+  .corporate-site .application-shade::after { opacity:1; }
+  .corporate-site .application-copy p { max-height:none; margin-top:18px; opacity:1; transform:none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .corporate-site *, .corporate-site *::before, .corporate-site *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
