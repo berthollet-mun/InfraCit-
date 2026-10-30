@@ -27,15 +27,19 @@ npm run lint
 npm run build
 ```
 
-## Avant publication
+## Publication sur Vercel
 
-- Pour un hébergement **Node**, fournir `ADMIN_EMAIL` et `ADMIN_PASSWORD` en variables d'environnement ; le serveur refuse de démarrer en mode production sans elles. Utiliser un mot de passe long et unique.
-- Pour un hébergement **Node**, conserver un volume persistant pour `server/data/site.sqlite`, ou définir `DATABASE_PATH` vers un autre emplacement persistant. Un hébergement statique seul ne peut pas recevoir les demandes de contact ni conserver les visites.
+Le front et les fonctions du dossier `api/` peuvent partager le même domaine `infra-cit.vercel.app`. La base PostgreSQL persistante est à connecter au projet Vercel existant ; voir [vercel/README.md](vercel/README.md). L'accès à ce projet est nécessaire avant la publication. La base Loopia préparée séparément n'est pas utilisée par ces fonctions.
+
+## Points à vérifier avant publication
+
+- Dans Vercel, fournir `DATABASE_URL`, `ADMIN_EMAIL` et `ADMIN_PASSWORD` en variables d'environnement serveur. Utiliser un mot de passe long et unique.
+- Pour un hébergement **Node classique** hors Vercel, conserver un volume persistant pour `server/data/site.sqlite`, ou définir `DATABASE_PATH` vers un autre emplacement persistant.
 - Les sessions administrateur sont conservées en mémoire et expirent après 12 heures ; un redémarrage du serveur les termine.
 - Les photographies de la maquette sont des visuels d'illustration générés. Les remplacer par des photos autorisées de l'entreprise ou de ses missions avant publication.
 - Vérifier les coordonnées et mentions légales fournies dans le brief.
 - Les anciens écrans de gestion de contenus présents dans le dépôt ne pilotent pas encore la nouvelle page publique.
 
-## Hébergement Loopia
+## Préparation Loopia
 
-L'offre Loopia Maison utilise PHP et MariaDB. Une API PHP compatible avec les mêmes routes `/api` est disponible dans `loopia/public_html/api/index.php`, avec son schéma SQL et ses instructions dans [loopia/README.md](loopia/README.md). Le site React reste généré par `npm run build` ; l'API Node/SQLite reste l'environnement local de développement. Ne publiez jamais le fichier de configuration réel dans Git ou dans `public_html`.
+Une base MariaDB dédiée et une API PHP compatible avec les mêmes routes ont été préparées chez Loopia. Elles ne sont pas liées au site Vercel actuel et aucun fichier InfraCité n'est publié sous `acv-drc.org`. Les détails sont dans [loopia/README.md](loopia/README.md). Ne publiez jamais le fichier de configuration réel dans Git ou dans `public_html`.
