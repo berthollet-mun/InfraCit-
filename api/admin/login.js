@@ -1,5 +1,6 @@
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { adminConfig, body, checkOrigin, clientIpHash, db, field, handle, HttpError, json, sessionCookie } from '../_shared.js';
+import { verifyPassword } from '../_password.js';
 
 function secureEqual(left, right) {
   const a = createHash('sha256').update(left).digest();
@@ -20,7 +21,17 @@ export async function POST(request) {
     const active = attempt && new Date(attempt.reset_at).getTime() > Date.now();
     if (active && Number(attempt.failures) >= 8) throw new HttpError(429, 'Trop de tentatives. Réessayez dans quelques minutes.');
 
-    if (!secureEqual(submittedEmail, email.toLowerCase()) || !secureEqual(submittedPassword, password)) {
+    const environmentAdmin = secureEqual(submittedEmail, email.toLowerCase()) && secureEqual(submittedPassword, password);
+    let authenticatedEmail = environmentAdmin ? email : null;
+    if (!environmentAdmin) {
+      const [account] = await sql`SELECT email, password_hash FROM ic_admin_users
+        WHERE email = ${submittedEmail} AND active = TRUE`;
+      if (account && await verifyPassword(submittedPassword, account.password_hash)) {
+        authenticatedEmail = account.email;
+      }
+    }
+
+    if (!authenticatedEmail) {
       const failures = active ? Number(attempt.failures) + 1 : 1;
       const resetAt = active ? new Date(attempt.reset_at).toISOString() : new Date(Date.now() + 15 * 60 * 1000).toISOString();
       await sql`INSERT INTO ic_login_attempts (ip_key, failures, reset_at)
@@ -34,7 +45,7 @@ export async function POST(request) {
     const tokenHash = createHash('sha256').update(token).digest('hex');
     const expiresAt = new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString();
     await sql`INSERT INTO ic_admin_sessions (token_hash, email, expires_at)
-      VALUES (${tokenHash}, ${email}, ${expiresAt})`;
-    return json({ email }, 200, { 'Set-Cookie': sessionCookie(token, 43200) });
+      VALUES (${tokenHash}, ${authenticatedEmail}, ${expiresAt})`;
+    return json({ email: authenticatedEmail }, 200, { 'Set-Cookie': sessionCookie(token, 43200) });
   });
 }

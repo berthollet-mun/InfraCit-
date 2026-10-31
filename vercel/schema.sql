@@ -28,3 +28,10 @@ CREATE TABLE IF NOT EXISTS ic_admin_sessions (
     expires_at TIMESTAMPTZ NOT NULL
 );
 CREATE INDEX IF NOT EXISTS ic_admin_sessions_expires_at ON ic_admin_sessions (expires_at);
+
+CREATE TABLE IF NOT EXISTS ic_admin_users (
+    email VARCHAR(180) PRIMARY KEY,
+    password_hash TEXT NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
