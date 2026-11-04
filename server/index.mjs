@@ -3,7 +3,7 @@ import express from 'express';
 import { randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { changeMessageStatus, createMessage, getDashboard, listMessages, recordVisit } from './database.mjs';
+import { changeMessageStatus, createMessage, deleteSitePhoto, getDashboard, getSitePhoto, listMessages, listSitePhotos, recordVisit, saveSitePhoto } from './database.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const production = process.argv.includes('--production');
@@ -51,7 +51,38 @@ function setSessionCookie(res, token, maxAge) {
 
 const app = express();
 app.disable('x-powered-by');
+const photoKeys = new Set(['hero-topographie','hero-geomatique','hero-urbanisme','hero-ingenierie','hero-environnement','domaine-ingenierie','domaine-geomatique','domaine-environnement','domaine-territoires','application-territoires','application-urbanisme','application-sites','application-environnement']);
+app.put('/api/admin/photos', express.json({ limit: '3.7mb' }), requireAdmin, (req, res) => {
+  if (req.headers.origin && new URL(req.headers.origin).host !== req.headers.host) return res.status(403).json({ error: 'Origine non autorisée.' });
+  const { key, alt, base64 } = req.body || {};
+  if (!photoKeys.has(key) || typeof alt !== 'string' || !alt.trim() || typeof base64 !== 'string' || !/^[A-Za-z0-9+/]+={0,2}$/.test(base64)) return res.status(400).json({ error: 'Image ou emplacement invalide.' });
+  const binary = Buffer.from(base64, 'base64');
+  if (!binary.length || binary.length > 2_700_000) return res.status(413).json({ error: 'Image trop volumineuse.' });
+  const type = binary[0] === 0xff && binary[1] === 0xd8 && binary[2] === 0xff ? 'image/jpeg' : binary.subarray(0, 8).equals(Buffer.from([137,80,78,71,13,10,26,10])) ? 'image/png' : binary.toString('ascii', 0, 4) === 'RIFF' && binary.toString('ascii', 8, 12) === 'WEBP' ? 'image/webp' : null;
+  if (!type) return res.status(400).json({ error: 'Utilisez une photo JPG, PNG ou WebP.' });
+  res.json(saveSitePhoto(key, type, base64, alt.trim().slice(0, 240)));
+});
 app.use(express.json({ limit: '24kb' }));
+
+app.get('/api/site-images', (_req, res) => res.json(listSitePhotos()));
+app.get('/api/site-image', (req, res) => {
+  const key = String(req.query.slot || '');
+  if (!photoKeys.has(key)) return res.status(400).json({ error: 'Emplacement inconnu.' });
+  const photo = getSitePhoto(key);
+  if (!photo) return res.status(404).json({ error: 'Photo introuvable.' });
+  const bytes = Buffer.from(photo.data_base64, 'base64');
+  res.set('Content-Type', photo.content_type);
+  res.set('Cache-Control', req.query.v === photo.updated_at ? 'public, max-age=31536000, immutable' : 'public, max-age=300');
+  res.send(bytes);
+});
+app.get('/api/admin/photos', requireAdmin, (_req, res) => res.json(listSitePhotos()));
+app.delete('/api/admin/photos', requireAdmin, (req, res) => {
+  if (req.headers.origin && new URL(req.headers.origin).host !== req.headers.host) return res.status(403).json({ error: 'Origine non autorisée.' });
+  const key = String(req.query.slot || '');
+  if (!photoKeys.has(key)) return res.status(400).json({ error: 'Emplacement inconnu.' });
+  deleteSitePhoto(key);
+  res.json({ ok: true });
+});
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
 
