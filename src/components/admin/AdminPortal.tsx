@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
-import { Archive, ArrowRight, ArrowUpRight, BarChart3, Check, ChevronRight, Globe2, Images, Inbox, LayoutDashboard, LockKeyhole, LogOut, Mail, RefreshCw, Search, UsersRound } from 'lucide-react';
+import { Archive, ArrowRight, ArrowUpRight, BarChart3, Check, ChevronRight, Eye, EyeOff, Globe2, Images, Inbox, LayoutDashboard, LockKeyhole, LogOut, Mail, RefreshCw, Search, UsersRound } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Brand } from '../public/CorporateSite';
 import { PhotoManager } from './PhotoManager';
@@ -61,6 +61,7 @@ function periodRange(period: Exclude<Period, 'custom'>): DateRange {
 function Login({ onLogin, onReturnToSite }: { onLogin: (email: string) => void; onReturnToSite: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -85,7 +86,7 @@ function Login({ onLogin, onReturnToSite }: { onLogin: (email: string) => void; 
       <div className="admin-login-top"><Brand /><button type="button" onClick={onReturnToSite}>Retour au site <ArrowUpRight size={17} /></button></div>
       <main className="admin-login-main">
         <motion.div className="admin-login-intro" initial={reduceMotion ? false : { opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, ease: [0.22, 1, .36, 1] }}><span className="admin-kicker">ESPACE PRIVÉ / INFRACITÉ</span><h1>Bienvenue dans<br /><span>votre espace.</span></h1><div className="admin-login-lines" aria-hidden="true"><i /><i /><i /></div></motion.div>
-        <motion.div className="admin-login-card" initial={reduceMotion ? false : { opacity: 0, y: 30, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .75, delay: .12, ease: [0.22, 1, .36, 1] }}><div className="admin-login-card-top"><span className="admin-login-icon"><LockKeyhole size={22} /></span><span>ACCÈS ADMINISTRATEUR</span></div><h2>Se connecter</h2><p>Entrez vos identifiants pour accéder au tableau de bord.</p><form onSubmit={submit}><label htmlFor="admin-email">Adresse e-mail</label><input id="admin-email" type="email" autoComplete="username" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Votre adresse e-mail" /><label htmlFor="admin-password">Mot de passe</label><input id="admin-password" type="password" autoComplete="current-password" required value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Votre mot de passe" />{error && <div className="admin-login-error" role="alert">{error}</div>}<button className="admin-primary-button" type="submit" disabled={loading}>{loading ? 'Connexion…' : 'Se connecter'} <ArrowRight size={18} /></button></form></motion.div>
+        <motion.div className="admin-login-card" initial={reduceMotion ? false : { opacity: 0, y: 30, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: .75, delay: .12, ease: [0.22, 1, .36, 1] }}><div className="admin-login-card-top"><span className="admin-login-icon"><LockKeyhole size={22} /></span><span>ACCÈS ADMINISTRATEUR</span></div><h2>Se connecter</h2><p>Entrez vos identifiants pour accéder au tableau de bord.</p><form onSubmit={submit}><label htmlFor="admin-email">Adresse e-mail</label><input id="admin-email" type="email" autoComplete="username" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Votre adresse e-mail" /><label htmlFor="admin-password">Mot de passe</label><div className="admin-password-field"><input id="admin-password" type={showPassword ? 'text' : 'password'} autoComplete="current-password" required value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Votre mot de passe" /><button type="button" className="admin-password-toggle" aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'} aria-pressed={showPassword} onClick={() => setShowPassword((visible) => !visible)}>{showPassword ? <EyeOff size={20} /> : <Eye size={20} />}</button></div>{error && <div className="admin-login-error" role="alert">{error}</div>}<button className="admin-primary-button" type="submit" disabled={loading}>{loading ? 'Connexion…' : 'Se connecter'} <ArrowRight size={18} /></button></form></motion.div>
       </main>
       <div className="admin-login-bottom">© {new Date().getFullYear()} InfraCité Ingénierie <span>Ingénierie · Géomatique · Territoires</span></div>
     </div>
