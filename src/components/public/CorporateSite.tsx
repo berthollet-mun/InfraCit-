@@ -2,21 +2,14 @@ import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Mail, MapPin, Menu, Phone, UserRound, X } from 'lucide-react';
 import './corporate.css';
-
-const images = {
-  topographie: '/images/hero-topographie.jpg',
-  geomatique: '/images/hero-geomatique.jpg',
-  urbanisme: '/images/hero-urbanisme.jpg',
-  ingenierie: '/images/hero-ingenierie.jpg',
-  environnement: '/images/hero-environnement.jpg',
-};
+import { photoAlt, photoUrl, type SitePhotoKey, type SitePhotoOverride } from '../../data/sitePhotos';
 
 const slides = [
-  { image: images.topographie, title: 'Topographie & mesure', note: 'Observer le terrain avec précision', position: 'center' },
-  { image: images.geomatique, title: 'Cartographie & SIG', note: 'Donner du sens aux données spatiales', position: 'center' },
-  { image: images.urbanisme, title: 'Urbanisme opérationnel', note: 'Comprendre les dynamiques urbaines', position: 'center' },
-  { image: images.ingenierie, title: 'Ingénierie & conseil', note: 'Éclairer les choix techniques', position: 'center' },
-  { image: images.environnement, title: 'Environnement', note: 'Intégrer les enjeux du vivant', position: 'center' },
+  { imageKey: 'hero-topographie' as SitePhotoKey, title: 'Topographie & mesure', note: 'Observer le terrain avec précision', position: 'center' },
+  { imageKey: 'hero-geomatique' as SitePhotoKey, title: 'Cartographie & SIG', note: 'Donner du sens aux données spatiales', position: 'center' },
+  { imageKey: 'hero-urbanisme' as SitePhotoKey, title: 'Urbanisme opérationnel', note: 'Comprendre les dynamiques urbaines', position: 'center' },
+  { imageKey: 'hero-ingenierie' as SitePhotoKey, title: 'Ingénierie & conseil', note: 'Éclairer les choix techniques', position: 'center' },
+  { imageKey: 'hero-environnement' as SitePhotoKey, title: 'Environnement', note: 'Intégrer les enjeux du vivant', position: 'center' },
 ];
 
 const navigation = [
@@ -31,25 +24,25 @@ const domains = [
     number: '01', name: 'Ingénierie', title: 'Études techniques, conseil et expertise',
     description: 'Du diagnostic à l’assistance technique, nous examinons les conditions de réalisation d’un projet pour rendre les décisions plus sûres et les options plus lisibles.',
     tags: ['Études techniques', 'Diagnostic', 'Faisabilité', 'Assistance technique'],
-    image: images.ingenierie, alt: 'Ingénieurs consultant des plans sur un chantier d’infrastructure',
+    imageKey: 'domaine-ingenierie' as SitePhotoKey,
   },
   {
     number: '02', name: 'Géomatique', title: 'Topographie, cartographie et SIG',
     description: 'Nous relevons, organisons et représentons l’information spatiale pour construire une connaissance fiable du site, de ses contraintes et de ses possibilités.',
     tags: ['Topographie', 'Cartographie', 'SIG', 'Analyse spatiale'],
-    image: images.topographie, alt: 'Topographe utilisant une station totale sur le terrain',
+    imageKey: 'domaine-geomatique' as SitePhotoKey,
   },
   {
     number: '03', name: 'Environnement', title: 'Études et conseil en environnement',
     description: 'Une lecture attentive des milieux et des données environnementales aide à intégrer les sensibilités du territoire dès les premières réflexions.',
     tags: ['Analyse environnementale', 'Enjeux climatiques', 'Données', 'Aide à la décision'],
-    image: images.environnement, alt: 'Bassin versant et zone humide dans un paysage aménagé',
+    imageKey: 'domaine-environnement' as SitePhotoKey,
   },
   {
     number: '04', name: 'Territoires', title: 'Aménagement et urbanisme opérationnel',
     description: 'Nous rapprochons les enjeux techniques, spatiaux et d’usage pour accompagner les études d’opportunité et les scénarios d’aménagement.',
     tags: ['Aménagement', 'Urbanisme', 'Analyse territoriale', 'Scénarios'],
-    image: images.urbanisme, alt: 'Vue aérienne d’un quartier et de ses espaces publics',
+    imageKey: 'domaine-territoires' as SitePhotoKey,
   },
 ];
 
@@ -61,10 +54,10 @@ const missions = [
 ];
 
 const applications = [
-  { name: 'Territoires', title: 'Dynamiques territoriales', description: 'Appui stratégique aux schémas de cohérence territoriale (SCoT), études d’intercommunalité et identification des pôles de développement économique.', image: images.urbanisme, alt: 'Vue aérienne d’un territoire urbanisé' },
-  { name: 'Urbanisme', title: 'Urbanisme opérationnel', description: 'Études de faisabilité de ZAC, requalification de centres-bourgs, valorisation de friches industrielles et programmation des espaces publics partagés.', image: images.ingenierie, alt: 'Projet d’infrastructure en cours d’étude' },
-  { name: 'Espace', title: 'Représentation des sites', description: 'Cartographie fine du foncier, relevés de corps de rue, géoréférencement d’infrastructures souterraines et modélisation 3D d’emprises contraintes.', image: images.geomatique, alt: 'Analyse géomatique sur des cartes numériques' },
-  { name: 'Environnement', title: 'Enjeux environnementaux', description: 'Diagnostics des continuités écologiques, plans de gestion des eaux pluviales et prise en compte des risques naturels majeurs (inondation, retrait-gonflement des argiles).', image: images.environnement, alt: 'Paysage de zone humide et bassin versant' },
+  { name: 'Territoires', title: 'Dynamiques territoriales', description: 'Appui stratégique aux schémas de cohérence territoriale (SCoT), études d’intercommunalité et identification des pôles de développement économique.', imageKey: 'application-territoires' as SitePhotoKey },
+  { name: 'Urbanisme', title: 'Urbanisme opérationnel', description: 'Études de faisabilité de ZAC, requalification de centres-bourgs, valorisation de friches industrielles et programmation des espaces publics partagés.', imageKey: 'application-urbanisme' as SitePhotoKey },
+  { name: 'Espace', title: 'Représentation des sites', description: 'Cartographie fine du foncier, relevés de corps de rue, géoréférencement d’infrastructures souterraines et modélisation 3D d’emprises contraintes.', imageKey: 'application-sites' as SitePhotoKey },
+  { name: 'Environnement', title: 'Enjeux environnementaux', description: 'Diagnostics des continuités écologiques, plans de gestion des eaux pluviales et prise en compte des risques naturels majeurs (inondation, retrait-gonflement des argiles).', imageKey: 'application-environnement' as SitePhotoKey },
 ];
 
 const process = [
@@ -154,7 +147,7 @@ function Header() {
   );
 }
 
-function Hero() {
+function Hero({ photos }: { photos: SitePhotoOverride[] }) {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -168,7 +161,7 @@ function Hero() {
     <section id="accueil" className="hero" aria-label="Présentation d’InfraCité Ingénierie" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)}>
       <div className="hero-images" aria-hidden="true">
         {slides.map((slide, index) => (
-          <div key={slide.image} className={`hero-image ${index === current ? 'active' : ''}`} style={{ backgroundImage: `url("${slide.image}")`, backgroundPosition: slide.position }} />
+          <div key={slide.imageKey} className={`hero-image ${index === current ? 'active' : ''}`} style={{ backgroundImage: `url("${photoUrl(slide.imageKey, photos)}")`, backgroundPosition: slide.position }} />
         ))}
       </div>
       <div className="hero-shade" />
@@ -220,7 +213,7 @@ function Brief() {
   );
 }
 
-function Domains() {
+function Domains({ photos }: { photos: SitePhotoOverride[] }) {
   return (
     <section id="domaines" className="section domains-section">
       <div className="container">
@@ -228,7 +221,7 @@ function Domains() {
         <div className="domain-list">
           {domains.map((domain, index) => (
             <Reveal className={`domain-row ${index % 2 ? 'reverse' : ''}`} key={domain.number}>
-              <div className="domain-image-wrap"><img src={domain.image} alt={domain.alt} loading="lazy" /><span className="image-corner"><span className="marker" /> IC / {domain.number}</span></div>
+              <div className="domain-image-wrap"><img src={photoUrl(domain.imageKey, photos)} alt={photoAlt(domain.imageKey, photos)} loading="lazy" /><span className="image-corner"><span className="marker" /> IC / {domain.number}</span></div>
               <div className="domain-copy"><span className="domain-label">{domain.number} / {domain.name}</span><h3>{domain.title}</h3><p>{domain.description}</p><ul>{domain.tags.map(tag => <li key={tag}>{tag}</li>)}</ul><a href="#contact" className="text-link">Échanger sur ce domaine <ArrowUpRight size={16} /></a></div>
             </Reveal>
           ))}
@@ -250,12 +243,12 @@ function Missions() {
   );
 }
 
-function Applications() {
+function Applications({ photos }: { photos: SitePhotoOverride[] }) {
   return (
     <section id="applications" className="section applications-section">
       <div className="container">
         <SectionHead index="03" label="CHAMPS D’APPLICATION" title="Des problématiques variées, une même exigence de clarté." />
-        <div className="application-grid">{applications.map((application, index) => <Reveal key={application.name} className="application-card" delay={index * 0.07}><img src={application.image} alt={application.alt} loading="lazy" /><div className="application-shade" /><div className="application-copy" tabIndex={0} role="group" aria-label={application.title} aria-describedby={`application-description-${index}`}><span>0{index + 1} / {application.name}</span><h3>{application.title}</h3><p id={`application-description-${index}`}>{application.description}</p><ArrowUpRight size={20} aria-hidden="true" /></div></Reveal>)}</div>
+        <div className="application-grid">{applications.map((application, index) => <Reveal key={application.name} className="application-card" delay={index * 0.07}><img src={photoUrl(application.imageKey, photos)} alt={photoAlt(application.imageKey, photos)} loading="lazy" /><div className="application-shade" /><div className="application-copy" tabIndex={0} role="group" aria-label={application.title} aria-describedby={`application-description-${index}`}><span>0{index + 1} / {application.name}</span><h3>{application.title}</h3><p id={`application-description-${index}`}>{application.description}</p><ArrowUpRight size={20} aria-hidden="true" /></div></Reveal>)}</div>
       </div>
     </section>
   );
@@ -323,10 +316,14 @@ function Footer() {
 }
 
 export function CorporateSite() {
+  const [photos, setPhotos] = useState<SitePhotoOverride[]>([]);
+  useEffect(() => {
+    fetch('/api/site-images').then((response) => response.ok ? response.json() : []).then((items) => { if (Array.isArray(items)) setPhotos(items); }).catch(() => {});
+  }, []);
   useEffect(() => {
     const key = 'infracite_visit_recorded';
     if (sessionStorage.getItem(key)) return;
     fetch('/api/visit', { method: 'POST' }).then((response) => { if (response.ok) sessionStorage.setItem(key, '1'); }).catch(() => {});
   }, []);
-  return <div className="corporate-site"><a className="skip-link" href="#contenu">Aller au contenu</a><Header /><main id="contenu"><Hero /><Brief /><Domains /><Missions /><Applications /><Process /><Approach /><Contact /></main><Footer /></div>;
+  return <div className="corporate-site"><a className="skip-link" href="#contenu">Aller au contenu</a><Header /><main id="contenu"><Hero photos={photos} /><Brief /><Domains photos={photos} /><Missions /><Applications photos={photos} /><Process /><Approach /><Contact /></main><Footer /></div>;
 }

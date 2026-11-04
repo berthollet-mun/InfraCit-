@@ -28,6 +28,13 @@ database.exec(`
   );
   CREATE INDEX IF NOT EXISTS messages_created_at ON messages(createdAt DESC);
   CREATE TABLE IF NOT EXISTS metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+  CREATE TABLE IF NOT EXISTS site_photos (
+    slot_key TEXT PRIMARY KEY,
+    content_type TEXT NOT NULL,
+    data_base64 TEXT NOT NULL,
+    alt_text TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+  );
 `);
 
 function migrateLegacyData() {
@@ -63,6 +70,24 @@ function migrateLegacyData() {
 }
 
 migrateLegacyData();
+
+export function listSitePhotos() {
+  return database.prepare('SELECT slot_key AS key, alt_text AS alt, updated_at AS version FROM site_photos ORDER BY slot_key').all();
+}
+
+export function getSitePhoto(key) {
+  return database.prepare('SELECT content_type, data_base64, updated_at FROM site_photos WHERE slot_key = ?').get(key);
+}
+
+export function saveSitePhoto(key, contentType, data, alt) {
+  const version = String(Date.now());
+  database.prepare('INSERT INTO site_photos (slot_key, content_type, data_base64, alt_text, updated_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(slot_key) DO UPDATE SET content_type = excluded.content_type, data_base64 = excluded.data_base64, alt_text = excluded.alt_text, updated_at = excluded.updated_at').run(key, contentType, data, alt, version);
+  return { key, alt, version };
+}
+
+export function deleteSitePhoto(key) {
+  database.prepare('DELETE FROM site_photos WHERE slot_key = ?').run(key);
+}
 
 export function recordVisit(day) {
   database.prepare('INSERT INTO visits(day, count) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET count = count + 1').run(day);

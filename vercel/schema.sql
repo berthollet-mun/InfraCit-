@@ -35,3 +35,11 @@ CREATE TABLE IF NOT EXISTS ic_admin_users (
     active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS ic_site_photos (
+    slot_key VARCHAR(60) PRIMARY KEY,
+    content_type VARCHAR(20) NOT NULL,
+    data_base64 TEXT NOT NULL,
+    alt_text VARCHAR(240) NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
